@@ -1,0 +1,19 @@
+{
+  "name": "ur",
+  "version": "1.0.0",
+  "description": "An attempt at creating a web version of the Royal Game of Ur",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dougwollison/ur.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dougwollison/ur/issues"
+  },
+  "homepage": "https://github.com/dougwollison/ur#readme"
+}
