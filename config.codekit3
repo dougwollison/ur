@@ -35,6 +35,72 @@
 		"oAP": "/assets/css/game.css.map",
 		"oF": 0
 		},
+	"/assets/js/framework/board.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/board.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/framework/emitter.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/emitter.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/framework/game.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/game.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/framework/player.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/player.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/framework/square.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/square.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/framework/token.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/framework/token.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
 	"/assets/js/game.js": {
 		"bF": 4,
 		"ft": 64,
@@ -106,14 +172,6 @@
 		"oA": 0,
 		"oAP": "/LICENSE",
 		"oF": 0
-		},
-	"/package-lock.json": {
-		"ft": 524288,
-		"oA": 1,
-		"oAP": "/package-lock-min.json",
-		"oF": 0,
-		"oO": 0,
-		"oS": 1
 		},
 	"/package.json": {
 		"ft": 524288,
@@ -589,7 +647,7 @@
 		},
 	"environmentVariablesString": "NODE_ENV:::production",
 	"esLintConfigFileHandlingType": 0,
-	"esLintECMAVersion": 7,
+	"esLintECMAVersion": 9,
 	"esLintEnvironmentsMask": 1,
 	"esLintRules": {
 		"accessor-pairs": {
