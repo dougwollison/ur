@@ -1,27 +1,60 @@
 const TOKEN_COUNT = 7;
-const SAFE_SQUARES = [ 7 ];
-const DOUBLE_SQUARES = [ 3, 7, 13 ];
-const COMBAT_SQUARES = [ 4, 5, 6, 7, 8, 9, 10, 11 ];
 const FINAL_SQUARE = 13;
+
+const GAME_SQUARES = [
+	/* ==========
+	l03  m04  r03
+	l02  m05  r02
+	l01  m06  r01
+	l00  m07  r00
+	---  m08  ---
+	---  m09  ---
+	l13  m10  r13
+	l12  m11  r12
+	========== */
+
+	// Left Squares
+	{ index: 0,  side: 'left',   left: 0, top: 3 },
+	{ index: 1,  side: 'left',   left: 0, top: 2 },
+	{ index: 2,  side: 'left',   left: 0, top: 1 },
+	{ index: 3,  side: 'left',   left: 0, top: 0, isDouble: true },
+	{ index: 12, side: 'left',   left: 0, top: 7 },
+	{ index: 13, side: 'left',   left: 0, top: 6, isDouble: true },
+
+	// Right Squares
+	{ index: 0,  side: 'right',  left: 2, top: 3 },
+	{ index: 1,  side: 'right',  left: 2, top: 2 },
+	{ index: 2,  side: 'right',  left: 2, top: 1 },
+	{ index: 3,  side: 'right',  left: 2, top: 0, isDouble: true },
+	{ index: 12, side: 'right',  left: 2, top: 7 },
+	{ index: 13, side: 'right',  left: 2, top: 6, isDouble: true },
+
+	// Middle/Combat Squares
+	{ index: 4,  side: 'middle', left: 1, top: 0 },
+	{ index: 5,  side: 'middle', left: 1, top: 1 },
+	{ index: 6,  side: 'middle', left: 1, top: 2 },
+	{ index: 7,  side: 'middle', left: 1, top: 3 },
+	{ index: 8,  side: 'middle', left: 1, top: 4, isDouble: true, isSafe: true },
+	{ index: 9,  side: 'middle', left: 1, top: 5 },
+	{ index: 10, side: 'middle', left: 1, top: 6 },
+	{ index: 11, side: 'middle', left: 1, top: 7 },
+];
 
 function flip() {
 	return Math.floor( Math.random() * 2 ) ? 1 : 0;
 }
 
 class Square {
-	constructor( el, side, index ) {
-		this.el = el;
+	constructor( config ) {
+		this.el = document.createElement( 'ur-square' );
 		this.token = null;
 
-		el.classList.add( side );
+		this.isDouble = !! config.isDouble;
+		this.isSafe = !! config.isSafe;
 
-		// Check if it's a safe square, flag if so
-		this.isSafe = SAFE_SQUARES.indexOf( index ) >= 0;
-		el.classList.toggle( 'is-safe', this.isSafe );
-
-		// Check if it's a double square, flag if so
-		this.isDouble = DOUBLE_SQUARES.indexOf( index ) >= 0;
-		el.classList.toggle( 'is-double', this.isDouble );
+		this.el.classList.add( config.side );
+		this.el.classList.toggle( 'is-double', this.isDouble );
+		this.el.classList.toggle( 'is-safe', this.isSafe );
 	}
 
 	add( token ) {
@@ -33,19 +66,35 @@ class Square {
 		this.el.removeChild( token.el );
 		this.token = null;
 	}
+
+	size( width, height ) {
+		this.el.style.width = width * 100 + '%';
+		this.el.style.height = height * 100 + '%';
+	}
+
+	position( left, top ) {
+		this.el.style.left = left * 100 + '%';
+		this.el.style.top = top * 100 + '%';
+	}
 }
 
 class Board {
-	constructor( el ) {
-		this.el = el;
+	constructor( width, height, squares ) {
+		this.el = document.createElement( 'ur-board' );
 		this.squares = [];
 
-		// Create the map of squares
-		el.querySelectorAll( '.game-square' ).forEach( el => {
-			var side = el.dataset.side;
-			var index = parseInt( el.dataset.index );
+		this.el.style.width = width * 100 + 'px';
+		this.el.style.height = height * 100 + 'px';
 
-			this.squares[ side + index ] = new Square( el, side, index );
+		squares.forEach( config => {
+			var square = new Square( config );
+
+			this.el.appendChild( square.el );
+
+			square.size( 1 / width, 1 / height );
+			square.position( config.left / width, config.top / height );
+
+			this.squares[ config.side + config.index ] = square;
 		} );
 	}
 
@@ -63,11 +112,8 @@ class Board {
 			return;
 		}
 
-		// Get the side (own or middle) based on progress
-		var side = COMBAT_SQUARES.indexOf( progress ) >= 0 ? 'middle' : token.side;
-
-		// Get the square for that side/index
-		var square = this.squares[ side + progress ];
+		// Get the applicable square
+		var square = this.squares[ token.side + progress ] || this.squares[ 'm' + progress ];
 
 		// Check if a token is already there
 		if ( square.token ) {
@@ -92,7 +138,7 @@ class Token {
 	constructor( side ) {
 		this.side = side;
 		this.progress = -1;
-		this.el = document.createElement( 'div' );
+		this.el = document.createElement( 'ur-token' );
 		this.el.classList.add( 'token', side );
 	}
 
@@ -114,6 +160,9 @@ class Token {
 
 class Player {
 	constructor( side ) {
+		this.el = document.createElement( 'ur-player' );
+		this.el.classList.add( side );
+
 		this.roll = 0;
 
 		this.inactiveTokens = [];
@@ -131,16 +180,14 @@ class Player {
 	}
 }
 
-const board = new Board( document.getElementById( 'canvas' ) );
+const board = new Board( 3, 8, GAME_SQUARES );
 
-const player1 = new Token( 'left' );
-const player2 = new Token( 'right' );
+const player1 = new Player( 'left' );
+const player2 = new Player( 'right' );
 
-// Debugging tools
+const canvas = document.body;
+canvas.appendChild( board.el );
+canvas.appendChild( player1.el );
+canvas.appendChild( player2.el );
 
 window.game = { board, player1, player2 };
-
-window.advanceToken = function( token, amount ) {
-	token.advance( amount );
-	board.place( token );
-};
