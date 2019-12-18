@@ -28,25 +28,58 @@ body {
 	}
 }
 
-#board {
+.board {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	display: table;
+	table-layout: fixed;
 	border-collapse: collapse;
+
+	&-row {
+		height: (100%/3);
+		display: table-row;
+	}
+
+	&-square {
+		display: table-cell;
+		border: 1px solid;
+		padding: 10px;
+
+		&.empty {
+			border: none;
+		}
+
+		&.left {
+			background: mix( blue, #fff );
+		}
+		&.right {
+			background: mix( red, #fff );
+		}
+		&.middle {
+			background: mix( purple, #fff );
+		}
+
+		&.is-double {
+			background-image: radial-gradient(rgba(#fff,.5), rgba(#fff,0));
+		}
+		&.is-safe {
+			box-shadow: inset 0 0 10px rgba(#000, .5);
+		}
+	}
 }
 
-.board-row {
-	display: table-row;
-}
+.token {
+	border-radius: 50%;
+	width: 80px;
+	height: 80px;
 
-.board-square {
-	display: table-cell;
-	border: 1px solid;
-
-	&.empty {
-		border: none;
+	&.left {
+		background: blue;
+	}
+	&.right {
+		background: red;
 	}
 }
