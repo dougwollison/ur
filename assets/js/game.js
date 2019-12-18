@@ -1,6 +1,3 @@
-const TOKEN_COUNT = 7;
-const FINAL_SQUARE = 13;
-
 const GAME_SQUARES = [
 	/* ==========
 	l03  m04  r03
@@ -44,96 +41,6 @@ function flip() {
 	return Math.floor( Math.random() * 2 ) ? 1 : 0;
 }
 
-class Square {
-	constructor( config ) {
-		this.el = document.createElement( 'ur-square' );
-		this.token = null;
-
-		this.isDouble = !! config.isDouble;
-		this.isSafe = !! config.isSafe;
-
-		this.el.classList.add( config.side );
-		this.el.classList.toggle( 'is-double', this.isDouble );
-		this.el.classList.toggle( 'is-safe', this.isSafe );
-	}
-
-	add( token ) {
-		this.token = token;
-		this.el.appendChild( token.el );
-	}
-
-	remove( token ) {
-		this.el.removeChild( token.el );
-		this.token = null;
-	}
-
-	size( width, height ) {
-		this.el.style.width = width * 100 + '%';
-		this.el.style.height = height * 100 + '%';
-	}
-
-	position( left, top ) {
-		this.el.style.left = left * 100 + '%';
-		this.el.style.top = top * 100 + '%';
-	}
-}
-
-class Board {
-	constructor( width, height, squares ) {
-		this.el = document.createElement( 'ur-board' );
-		this.squares = [];
-
-		this.el.style.width = width * 100 + 'px';
-		this.el.style.height = height * 100 + 'px';
-
-		squares.forEach( config => {
-			var square = new Square( config );
-
-			this.el.appendChild( square.el );
-
-			square.size( 1 / width, 1 / height );
-			square.position( config.left / width, config.top / height );
-
-			this.squares[ config.side + config.index ] = square;
-		} );
-	}
-
-	place( token ) {
-		var progress = token.progress;
-
-		// If not in play, ignore
-		if ( progress < 0 ) {
-			return;
-		}
-
-		// If past the final square, remove from board
-		if ( progress > FINAL_SQUARE ) {
-			token.remove();
-			return;
-		}
-
-		// Get the applicable square
-		var square = this.squares[ token.side + progress ] || this.squares[ 'm' + progress ];
-
-		// Check if a token is already there
-		if ( square.token ) {
-			// If safe, move ahead
-			if ( square.isSafe ) {
-				token.advance();
-				this.place( token );
-				return;
-			}
-
-			// reset the existing token and take it's place
-			square.token.reset();
-			square.remove( square.token );
-		}
-
-		// Add the token to the square
-		square.add( token );
-	}
-}
-
 class Token {
 	constructor( side ) {
 		this.side = side;
@@ -149,45 +56,145 @@ class Token {
 	reset() {
 		this.progress = -1;
 	}
+}
 
-	remove() {
-		// Remove from DOM if applicable
-		if ( this.el.parent ) {
-			this.el.parent.removeChild( this.el );
+class Square {
+	constructor( config ) {
+		this.el = document.createElement( 'ur-square' );
+		this.token = null;
+
+		this.side = config.side;
+		this.top = config.top;
+		this.left = config.left;
+		this.isDouble = !! config.isDouble;
+		this.isSafe = !! config.isSafe;
+
+		this.el.classList.add( config.side );
+		this.el.classList.toggle( 'is-double', this.isDouble );
+		this.el.classList.toggle( 'is-safe', this.isSafe );
+	}
+}
+
+class Board {
+	constructor( config ) {
+		this.el = document.createElement( 'ur-board' );
+		this.squares = [];
+
+		this.width = config.width;
+		this.height = config.height;
+
+		this.el.style.width = this.width * 100 + 'px';
+		this.el.style.height = this.height * 100 + 'px';
+
+		config.squares.forEach( squareConfig => {
+			var square = new Square( squareConfig );
+
+			this.placeItem( square.el, 1, 1, squareConfig.top, squareConfig.left );
+
+			this.squares[ squareConfig.side + squareConfig.index ] = square;
+		} );
+	}
+
+	placeItem( el, width, height, top, left ) {
+		this.el.appendChild( el );
+
+		el.style.width = width * 100 + 'px';
+		el.style.height = height * 100 + 'px';
+
+		el.style.top = top * 100 + 'px';
+		el.style.left = left * 100 + 'px';
+	}
+
+	placeToken( token ) {
+		var progress = token.progress;
+
+		// If not in play, abort
+		if ( progress < 0 ) {
+			return false;
 		}
+
+		// Find the applicable square and place it there
+		var square = this.squares[ token.side + progress ] || this.squares[ 'm' + progress ];
+		if ( square ) {
+			var capture = square.token;
+
+			// Check if there is a token to capture
+			if ( capture ) {
+				// Can't capture if own token, abort
+				if ( caputre.side === token.side ) {
+					return false;
+				}
+
+				// Can't capture if safe, move ahead
+				if ( square.isSafe ) {
+					token.advance();
+					return this.place( token );
+				}
+
+				// Reset the target token, take it's place
+				square.token.reset();
+				square.token = token;
+
+				// return token to remove
+				return capture;
+			}
+
+			// Add the token to the square
+			square.token = token;
+		}
+
+		// return
+		return square;
 	}
 }
 
 class Player {
-	constructor( side ) {
+	constructor( config ) {
 		this.el = document.createElement( 'ur-player' );
-		this.el.classList.add( side );
-
-		this.roll = 0;
+		this.el.classList.add( config.side );
 
 		this.inactiveTokens = [];
-		for ( let i = 0; i < TOKEN_COUNT; i++ ) {
-			this.inactiveTokens.push( new Token( side ) );
+		for ( let i = 0; i < config.tokenCount; i++ ) {
+			const token = new Token( config.side );
+
+			this.inactiveTokens.push( token );
+			this.el.appendChild( token.el );
 		}
 
 		this.activeTokens = [];
 		this.completedTokens = [];
 	}
+}
+
+class Game {
+	constructor( config ) {
+		this.el = document.createElement( 'ur-game' );
+
+		this.board = new Board( config.board );
+		this.player1 = new Player( { ...config.players, side: 'left' } );
+		this.player2 = new Player( { ...config.players, side: 'right' } );
+
+		this.el.appendChild( this.board.el );
+		this.el.appendChild( this.player1.el );
+		this.el.appendChild( this.player2.el );
+	}
 
 	roll() {
 		// simulate flipping 4 coins
-		this.roll = flip() + flip() + flip() + flip();
+		return flip() + flip() + flip() + flip();
 	}
 }
 
-const board = new Board( 3, 8, GAME_SQUARES );
+window.game = new Game( {
+	board: {
+		width: 3,
+		height: 8,
+		squares: GAME_SQUARES,
+	},
+	players: {
+		tokenCount: 7,
+	},
+	finalSquare: 13,
+} );
 
-const player1 = new Player( 'left' );
-const player2 = new Player( 'right' );
-
-const canvas = document.body;
-canvas.appendChild( board.el );
-canvas.appendChild( player1.el );
-canvas.appendChild( player2.el );
-
-window.game = { board, player1, player2 };
+document.body.appendChild( game.el );
