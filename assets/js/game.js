@@ -1,7 +1,12 @@
+const TOKEN_COUNT = 7;
 const SAFE_SQUARES = [ 7 ];
 const DOUBLE_SQUARES = [ 3, 7, 13 ];
 const COMBAT_SQUARES = [ 4, 5, 6, 7, 8, 9, 10, 11 ];
 const FINAL_SQUARE = 13;
+
+function flip() {
+	return Math.floor( Math.random() * 2 ) ? 1 : 0;
+}
 
 class Square {
 	constructor( el, side, index ) {
@@ -104,6 +109,25 @@ class Token {
 		if ( this.el.parent ) {
 			this.el.parent.removeChild( this.el );
 		}
+	}
+}
+
+class Player {
+	constructor( side ) {
+		this.roll = 0;
+
+		this.inactiveTokens = [];
+		for ( let i = 0; i < TOKEN_COUNT; i++ ) {
+			this.inactiveTokens.push( new Token( side ) );
+		}
+
+		this.activeTokens = [];
+		this.completedTokens = [];
+	}
+
+	roll() {
+		// simulate flipping 4 coins
+		this.roll = flip() + flip() + flip() + flip();
 	}
 }
 
