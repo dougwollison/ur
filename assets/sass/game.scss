@@ -128,7 +128,24 @@ body {
 		pointer-events: all;
 	}
 
-	button {
+	&.left {
+		left: 0;
+		background: lighten(blue, 30);
+
+		button {
+			background: darken(blue, 10);
+		}
+	}
+	&.right {
+		right: 0;
+		background: lighten(red, 30);
+
+		button {
+			background: darken(red, 10);
+		}
+	}
+}
+	.roll {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -147,24 +164,6 @@ body {
 			}
 		}
 	}
-
-	&.left {
-		left: 0;
-		background: lighten(blue, 30);
-
-		button {
-			background: darken(blue, 10);
-		}
-	}
-	&.right {
-		right: 0;
-		background: lighten(red, 30);
-
-		button {
-			background: darken(red, 10);
-		}
-	}
-}
 	.ur-token {
 		width: 8rem;
 		height: 8rem;
