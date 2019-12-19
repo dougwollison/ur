@@ -13,6 +13,7 @@ export default class Game extends React.Component {
 			for ( let i = 0; i < this.props.tokenCount; i++ ) {
 				tokens.push( {
 					side,
+					key: side + i,
 					progress: -1,
 					status: 'inactive',
 				} );
