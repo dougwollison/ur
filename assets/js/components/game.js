@@ -50,8 +50,8 @@ export default class Game extends React.Component {
 	}
 
 	render() {
-		const { playerSides, boardConfig, playerConfig } = this.props;
-		const { ready, currentPlayer } = this.state;
+		const { squares, playerSides, boardConfig, playerConfig } = this.props;
+		const { ready, currentPlayer, tokens } = this.state;
 
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
@@ -60,9 +60,16 @@ export default class Game extends React.Component {
 		return (
 			<>
 				<div className={ classes }>
-					<Board { ...boardConfig } />
+					<Board { ...boardConfig }
+						squares={ squares }
+						tokens={ tokens.filter( t => t.status === 'active' ) }
+						/>
 					{ playerSides.map( ( side, index ) => (
-						<Player { ...playerConfig } side={ side } ready={ currentPlayer === index } />
+						<Player { ...playerConfig }
+							side={ side }
+							ready={ currentPlayer === index }
+							tokens={ tokens.filter( t => t.side === side && t.status !== 'active' ) }
+							/>
 					) ) }
 				</div>
 				{ this.state.ready || (

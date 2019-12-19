@@ -43,17 +43,17 @@ const GAME_SQUARES = [
 ];
 
 const gameConfig = {
+	squares: GAME_SQUARES,
+	finalSquare: 14,
 	boardConfig: {
 		width: 3,
 		height: 8,
-		squares: GAME_SQUARES,
-		finalSquare: 14,
 	},
 	playerSides: [ 'left', 'right' ],
 	playerConfig: {
 		rollCount: 4,
-		tokenCount: 7,
 	},
+	tokenCount: 7,
 };
 
 ReactDOM.render( <Game { ...gameConfig } />, document.getElementById( 'root' ) );

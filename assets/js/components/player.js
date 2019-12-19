@@ -26,25 +26,24 @@ export default class Player extends React.Component {
 		this.setState( {
 			roll: result,
 		} );
+
+		this.props.onRoll( result );
 	}
 
 	render() {
-		const { ready, side, tokenCount } = this.props;
+		const { ready, side, tokens = [] } = this.props;
 		const { roll } = this.state;
 
 		const classes = classnames( 'ur-player', side, {
 			'is-ready': ready,
 		} );
 
-		const tokens = [];
-		for ( let i = 0; i < tokenCount; i++ ) {
-			tokens.push( <Token side={ side } /> );
-		}
-
 		return (
 			<div className={ classes }>
 				<button className="roll" onClick={ this.rollMove }>{ roll }</button>
-				{ tokens }
+				{ tokens.map( config => (
+					<Token { ...config } side={ side } />
+				) ) }
 			</div>
 		);
 	}
