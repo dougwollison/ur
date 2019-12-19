@@ -61,10 +61,10 @@ export default class Game extends React.Component {
 	}
 
 	findSquare( index, side ) {
-		var result = this.props.squares.filter( s => s.index === index );
+		var result = this.props.squares.filter( square => square.index === index );
 
 		if ( result.length > 1 ) {
-			result = result.filter( s => s.side === side );
+			result = result.filter( square => square.side === side );
 		}
 
 		return result[0];
@@ -139,7 +139,7 @@ export default class Game extends React.Component {
 				<div className={ classes }>
 					<Board { ...boardConfig }
 						squares={ squares }
-						tokens={ tokens.filter( t => t.status === 'active' ) }
+						tokens={ tokens.filter( token => token.status === 'active' ) }
 						onPlay={ this.handlePlay }
 						/>
 					{ playerSides.map( ( side, index ) => {
@@ -150,7 +150,7 @@ export default class Game extends React.Component {
 								side={ side }
 								ready={ isCurrent }
 								roll={ isCurrent && currentRoll }
-								tokens={ tokens.filter( t => t.side === side && t.status !== 'active' ) }
+								tokens={ tokens.filter( token => token.side === side && token.status !== 'active' ) }
 								onRoll={ this.handleRoll }
 								onPlay={ this.handlePlay }
 								/>
