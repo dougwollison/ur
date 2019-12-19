@@ -44,11 +44,11 @@ const game = new Game( {
 		width: 3,
 		height: 8,
 		squares: GAME_SQUARES,
+		finalSquare: 13,
 	},
 	players: {
 		tokenCount: 7,
 	},
-	finalSquare: 13,
 } );
 
 /*

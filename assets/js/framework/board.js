@@ -21,6 +21,8 @@ export default class Board extends Emitter {
 
 			this.squares[ squareConfig.side + squareConfig.index ] = square;
 		} );
+
+		this.finalSquare = config.finalSquare;
 	}
 
 	placeItem( el, top, left, width, height ) {
