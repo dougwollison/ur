@@ -56,7 +56,14 @@ export default class Board extends Emitter {
 
 		// If not in play, abort
 		if ( progress < 0 ) {
+			token.trigger( 'place' );
 			return false;
+		}
+
+		// If past final square, complete
+		if ( progress > this.finalSquare ) {
+			token.complete();
+			return true;
 		}
 
 		// Find the applicable square and place it there
@@ -84,6 +91,7 @@ export default class Board extends Emitter {
 
 			// Place the token to the square
 			square.addToken( token );
+			token.trigger( 'place' );
 
 			this.placeItem( token.el, square.top, square.left );
 		}

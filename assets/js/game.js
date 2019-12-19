@@ -63,3 +63,5 @@ Game flow concept:
 */
 
 document.body.appendChild( game.el );
+
+window.game = game;
