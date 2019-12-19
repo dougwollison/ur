@@ -76,6 +76,7 @@ ur-player {
 
 		button {
 			left: 100%;
+			background: darken(blue, 10);
 		}
 	}
 	&.right {
@@ -84,6 +85,7 @@ ur-player {
 
 		button {
 			right: 100%;
+			background: darken(red, 10);
 		}
 	}
 }
