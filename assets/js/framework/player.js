@@ -36,7 +36,7 @@ export default class Player extends Emitter {
 			rollButton.disabled = true;
 		} );
 
-		this.inactiveTokens = [];
+		this.tokens = [];
 		for ( let i = 0; i < config.tokenCount; i++ ) {
 			const token = new Token( config.side );
 
@@ -55,7 +55,7 @@ export default class Player extends Emitter {
 				}
 			} );
 
-			this.inactiveTokens.push( token );
+			this.tokens.push( token );
 			this.el.appendChild( token.el );
 		}
 
@@ -65,6 +65,7 @@ export default class Player extends Emitter {
 			rollButton.disabled = false;
 		} );
 
+		this.inactiveTokens = [ ...this.tokens ];
 		this.completedTokens = [];
 	}
 
