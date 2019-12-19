@@ -16,6 +16,7 @@ export default class Game extends React.Component {
 					key: side + i,
 					progress: -1,
 					status: 'inactive',
+					isDisabled: false,
 				} );
 			}
 		} );
