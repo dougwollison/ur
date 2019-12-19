@@ -11,14 +11,16 @@ export default class Board extends React.Component {
 	render() {
 		const { width, height, squares, tokens, onPlay } = this.props;
 
-		const theSquares = squares.map( config => {
-			const props = {
+		function getProps( config ) {
+			return {
 				side: config.side,
 				top: ( config.top / height ) * 100 + '%',
 				left: ( config.left / width ) * 100 + '%',
 			};
+		}
 
-			return ( <Square { ...props } /> );
+		const theSquares = squares.map( config => {
+			return ( <Square { ...getProps( config ) } /> );
 		} );
 
 		const theTokens = tokens.map( config => {
@@ -27,13 +29,7 @@ export default class Board extends React.Component {
 				return null;
 			}
 
-			const props = {
-				side: config.side,
-				top: ( config.top / height ) * 100 + '%',
-				left: ( config.left / width ) * 100 + '%',
-			};
-
-			return ( <Token { ...props } onClick={ () => onPlay( config ) } /> );
+			return ( <Token { ...getProps( config ) } onClick={ () => onPlay( config ) } /> );
 		} );
 
 		return (
