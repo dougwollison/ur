@@ -2,9 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 
 export default function Token( props ) {
-	const classes = classnames( 'ur-token', props.side, {
-		'is-disabled': props.status === 'disabled',
-	} );
+	const classes = classnames(
+		'ur-token',
+		props.side,
+		`is-${props.status}`,
+		{  'is-disabled': props.isDisabled }
+	);
 
 	const position = {
 		top: props.top,
