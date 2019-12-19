@@ -86,7 +86,38 @@ export default class Game extends React.Component {
 	}
 
 	handlePlay( token ) {
-		console.log( token );
+		const tokens = [ ...this.state.tokens ];
+
+		token.progress += this.state.currentRoll;
+
+		// If at the final square, mark as complete
+		if ( token.progress === this.props.finalSquare ) {
+			token.status == 'complete';
+			delete token.top;
+			delete token.left;
+
+			this.nextPlayer();
+		} else {
+			// Find the applicable square and place it there
+			var square = this.findSquare( token.progress, token.side );
+			if ( square ) {
+				// Update token position/status
+				token.top = square.top;
+				token.left = square.left;
+				token.status = 'active';
+
+				if ( square.isDouble ) {
+					this.setState( { currentRoll: false } );
+				}
+			}
+
+			// If no square or otherwise not a double, next player
+			if ( ! square || ! square.isDouble ) {
+				this.nextPlayer();
+			}
+		}
+
+		this.setState( { tokens } );
 	}
 
 	render() {
