@@ -6,7 +6,7 @@ import Token from './token.js';
 export default function Board( { width, height, squares, tokens, onPlay } ) {
 	function getProps( config ) {
 		return {
-			side: config.side,
+			...config,
 			top: ( config.top / height ) * 100 + '%',
 			left: ( config.left / width ) * 100 + '%',
 		};
