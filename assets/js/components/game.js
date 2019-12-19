@@ -8,9 +8,21 @@ export default class Game extends React.Component {
 	constructor( props ) {
 		super( props );
 
+		const tokens = [];
+		this.props.playerSides.forEach( side => {
+			for ( let i = 0; i < this.props.tokenCount; i++ ) {
+				tokens.push( {
+					side,
+					progress: -1,
+					status: 'inactive',
+				} );
+			}
+		} );
+
 		this.state = {
 			ready: false,
 			currentPlayer: null,
+			tokens,
 		};
 
 		// Bind methods
