@@ -37,7 +37,7 @@ export default class Board extends Emitter {
 		var progress = token.progress + moveBy;
 
 		// Completable; valid
-		if ( progress >= this.finalSquare ) {
+		if ( progress > this.finalSquare ) {
 			return true;
 		}
 
