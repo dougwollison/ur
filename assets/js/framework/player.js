@@ -33,6 +33,7 @@ export default class Player extends Emitter {
 			rollButton.textContent = result;
 
 			this.trigger( 'roll', result );
+			rollButton.disabled = true;
 		} );
 
 		this.inactiveTokens = [];
@@ -47,28 +48,33 @@ export default class Player extends Emitter {
 				this.completeToken( token );
 			} );
 
-			token.on( 'place', () => {
-				this.currentRoll = 0;
-				rollButton.textContent = '';
-			} );
-
 			token.on( 'select', () => {
-				token.advance( this.currentRoll );
-				this.trigger( 'play', token );
+				if ( this.currentRoll ) {
+					token.advance( this.currentRoll );
+					this.trigger( 'play', token );
+				}
 			} );
 
 			this.inactiveTokens.push( token );
 			this.el.appendChild( token.el );
 		}
 
+		this.on( 'start', () => {
+			this.currentRoll = 0;
+			rollButton.textContent = '';
+			rollButton.disabled = false;
+		} );
+
 		this.completedTokens = [];
 	}
 
-	activate() {
+	start() {
+		this.trigger( 'start' );
 		this.el.classList.add( 'ready' );
 	}
 
-	deactivate() {
+	end() {
+		this.trigger( 'end' );
 		this.el.classList.remove( 'ready' );
 	}
 

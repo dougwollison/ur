@@ -18,7 +18,9 @@ export default class Game extends Emitter {
 				var goAgain = this.board.placeToken( token );
 
 				// If they can't roll again, next turn
-				if ( ! goAgain ) {
+				if ( goAgain ) {
+					player.start();
+				} else {
 					this.nextPlayer();
 				}
 			} );
@@ -49,7 +51,7 @@ export default class Game extends Emitter {
 			this.currentPlayer = 0;
 		}
 
-		this.players.forEach( player => player.deactivate() );
-		this.players[ this.currentPlayer ].activate();
+		this.players.forEach( player => player.end() );
+		this.players[ this.currentPlayer ].start();
 	}
 }
