@@ -49,7 +49,7 @@ const gameConfig = {
 		squares: GAME_SQUARES,
 		finalSquare: 14,
 	},
-	players: [ 'left', 'right' ],
+	playerSides: [ 'left', 'right' ],
 	playerConfig: {
 		tokenCount: 7,
 	},

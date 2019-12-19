@@ -14,7 +14,7 @@ export default class Game extends React.Component {
 	}
 
 	render() {
-		const { players, boardConfig, playerConfig } = this.props;
+		const { playerSides, boardConfig, playerConfig } = this.props;
 
 		const classes = classnames( 'ur-game', {
 			'ready': this.state.ready,
@@ -24,7 +24,7 @@ export default class Game extends React.Component {
 			<>
 				<div className={ classes }>
 					<Board { ...boardConfig } />
-					{ players.map( side => (
+					{ playerSides.map( ( side, index ) => (
 						<Player { ...playerConfig } side={ side } />
 					) ) }
 				</div>
