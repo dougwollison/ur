@@ -10,13 +10,12 @@ export default class Board extends Emitter {
 		this.width = config.width;
 		this.height = config.height;
 
-		this.el.style.width = this.width * 100 + 'px';
-		this.el.style.height = this.height * 100 + 'px';
+		this.el.innerHTML = `<svg id="canvas" version="1" width="${config.width * 100}" height="${config.height * 100}" xmlns="http://www.w3.org/2000/svg"></svg>`;
 
 		this.squares = config.squares.map( squareConfig => {
 			var square = new Square( squareConfig );
 
-			this.placeItem( square.el, squareConfig.top, squareConfig.left, 1, 1 );
+			this.placeItem( square.el, squareConfig.top, squareConfig.left );
 
 			return square;
 		} );
@@ -34,20 +33,14 @@ export default class Board extends Emitter {
 		return result[0];
 	}
 
-	placeItem( el, top, left, width, height ) {
+	placeItem( el, top, left ) {
 		this.el.appendChild( el );
 
 		if ( typeof top === 'number' ) {
-			el.style.top = top * 100 + 'px';
+			el.style.top = ( top / this.height ) * 100 + '%';
 		}
 		if ( typeof left === 'number' ) {
-			el.style.left = left * 100 + 'px';
-		}
-		if ( typeof width === 'number' ) {
-			el.style.width = width * 100 + 'px';
-		}
-		if ( typeof height === 'number' ) {
-			el.style.height = height * 100 + 'px';
+			el.style.left = ( left / this.width ) * 100 + '%';
 		}
 	}
 
