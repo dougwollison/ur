@@ -7,6 +7,7 @@ export default class Square extends Emitter {
 		this.el = document.createElement( 'ur-square' );
 		this.token = null;
 
+		this.index = config.index;
 		this.side = config.side;
 		this.top = config.top;
 		this.left = config.left;
