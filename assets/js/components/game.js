@@ -32,6 +32,7 @@ export default class Game extends React.Component {
 		this.state = {
 			ready: false,
 			currentPlayer: null,
+			currentRoll: null,
 			tokens,
 		};
 
@@ -61,7 +62,18 @@ export default class Game extends React.Component {
 		} );
 	}
 
-	handleRoll( result ) {
+	handleRoll() {
+		var result = 0;
+
+		// Sum a number of simulated coin flips
+		for ( let i = 0; i < this.props.rollCount; i++ ) {
+			result += Math.floor( Math.random() * 2 ) ? 1 : 0;
+		}
+
+		this.setState( {
+			currentRoll: result,
+		} );
+
 		// Force next turn if they roll a zero
 		if ( ! result ) {
 			this.nextPlayer();
@@ -77,7 +89,7 @@ export default class Game extends React.Component {
 
 	render() {
 		const { squares, playerSides, boardConfig, playerConfig } = this.props;
-		const { ready, currentPlayer, tokens } = this.state;
+		const { ready, currentPlayer, currentRoll, tokens } = this.state;
 
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
@@ -91,15 +103,20 @@ export default class Game extends React.Component {
 						tokens={ tokens.filter( t => t.status === 'active' ) }
 						onPlay={ this.handlePlay }
 						/>
-					{ playerSides.map( ( side, index ) => (
-						<Player { ...playerConfig }
-							side={ side }
-							ready={ currentPlayer === index }
-							tokens={ tokens.filter( t => t.side === side && t.status !== 'active' ) }
-							onRoll={ this.handleRoll }
-							onPlay={ this.handlePlay }
-							/>
-					) ) }
+					{ playerSides.map( ( side, index ) => {
+						var isCurrent = currentPlayer === index;
+
+						return (
+							<Player { ...playerConfig }
+								side={ side }
+								ready={ isCurrent }
+								roll={ isCurrent && currentRoll }
+								tokens={ tokens.filter( t => t.side === side && t.status !== 'active' ) }
+								onRoll={ this.handleRoll }
+								onPlay={ this.handlePlay }
+								/>
+						);
+					} ) }
 				</div>
 				{ this.state.ready || (
 					<button className="start" onClick={ this.start }>Start</button>
