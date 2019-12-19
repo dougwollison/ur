@@ -51,6 +51,7 @@ const gameConfig = {
 	},
 	playerSides: [ 'left', 'right' ],
 	playerConfig: {
+		rollCount: 4,
 		tokenCount: 7,
 	},
 };
