@@ -43,15 +43,19 @@ export default class Game extends React.Component {
 
 	nextPlayer() {
 		var current = this.state.currentPlayer;
+		const tokens = [ ...this.state.tokens ];
 
 		current++;
 		if ( current >= this.props.playerSides.length ) {
 			current = 0;
 		}
 
+		tokens.forEach( token => token.isDisabled = false );
+
 		this.setState( {
 			currentPlayer: current,
 			currentRoll: false,
+			tokens,
 		} );
 	}
 
