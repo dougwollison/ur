@@ -13,7 +13,7 @@ html, body {
 }
 
 html {
-	font-size: (1/8) * 10vh;
+	font-size: (1/10) * 10vh;
 
 	@media screen and (min-height:800px) {
 		font-size: 10px;
@@ -43,7 +43,7 @@ ur-board {
 	svg {
 		display: block;
 		width: auto;
-		max-height: 100vh;
+		max-height: 80vh;
 	}
 
 	ur-token {
@@ -103,8 +103,13 @@ ur-player {
 		color: white;
 		font-size: 5rem;
 
-		&:empty:before {
-			content: 'Roll';
+		&:empty {
+			font-size: 3rem;
+
+			&:before {
+				content: 'Roll';
+				text-transform: uppercase;
+			}
 		}
 	}
 
