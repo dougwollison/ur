@@ -27,6 +27,8 @@ export default class Game extends React.Component {
 
 		// Bind methods
 		this.start = this.start.bind( this );
+		this.handleRoll = this.handleRoll.bind( this );
+		this.handlePlay = this.handlePlay.bind( this );
 	}
 
 	start() {
@@ -49,6 +51,20 @@ export default class Game extends React.Component {
 		} );
 	}
 
+	handleRoll( result ) {
+		// Force next turn if they roll a zero
+		if ( ! result ) {
+			this.nextPlayer();
+			return;
+		}
+
+		console.log( result );
+	}
+
+	handlePlay( token ) {
+		console.log( token );
+	}
+
 	render() {
 		const { squares, playerSides, boardConfig, playerConfig } = this.props;
 		const { ready, currentPlayer, tokens } = this.state;
@@ -63,12 +79,15 @@ export default class Game extends React.Component {
 					<Board { ...boardConfig }
 						squares={ squares }
 						tokens={ tokens.filter( t => t.status === 'active' ) }
+						onPlay={ this.handlePlay }
 						/>
 					{ playerSides.map( ( side, index ) => (
 						<Player { ...playerConfig }
 							side={ side }
 							ready={ currentPlayer === index }
 							tokens={ tokens.filter( t => t.side === side && t.status !== 'active' ) }
+							onRoll={ this.handleRoll }
+							onPlay={ this.handlePlay }
 							/>
 					) ) }
 				</div>

@@ -31,7 +31,7 @@ export default class Player extends React.Component {
 	}
 
 	render() {
-		const { ready, side, tokens = [] } = this.props;
+		const { ready, side, tokens = [], onPlay } = this.props;
 		const { roll } = this.state;
 
 		const classes = classnames( 'ur-player', side, {
@@ -42,7 +42,7 @@ export default class Player extends React.Component {
 			<div className={ classes }>
 				<button className="roll" onClick={ this.rollMove }>{ roll }</button>
 				{ tokens.map( config => (
-					<Token { ...config } side={ side } />
+					<Token { ...config } side={ side } onClick={ () => onPlay( config ) } />
 				) ) }
 			</div>
 		);

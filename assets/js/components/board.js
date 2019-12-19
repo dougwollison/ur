@@ -11,7 +11,7 @@ export default class Board extends React.Component {
 	}
 
 	render() {
-		const { width, height, tokens } = this.props;
+		const { width, height, squares, tokens, onPlay } = this.props;
 
 		const theSquares = squares.map( config => {
 			const props = {
@@ -36,7 +36,7 @@ export default class Board extends React.Component {
 				left: ( square.left / width ) * 100 + '%',
 			};
 
-			return ( <Token { ...props } /> );
+			return ( <Token { ...props } onClick={ () => onPlay( config ) } /> );
 		} );
 
 		return (
