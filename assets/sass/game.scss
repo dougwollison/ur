@@ -39,18 +39,19 @@ ur-board {
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		color: #fff;
+		font-size: 100px;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
+		&.is-safe {
+			&:before {
+				content: '\2726';
+				color: gold;
+			}
+		}
 		&.is-double {
 			&:before {
 				content: '\2742';
-				font-size: 100px;
-				color: #fff;
-			}
-		}
-		&.is-safe {
-			&:before {
-				color: gold;
 			}
 		}
 	}
