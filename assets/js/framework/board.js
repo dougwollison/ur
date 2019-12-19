@@ -73,7 +73,7 @@ export default class Board extends Emitter {
 
 				// Can't capture if safe, move ahead
 				if ( square.isSafe ) {
-					token.advance();
+					token.advance( 1 );
 					return this.place( token );
 				}
 

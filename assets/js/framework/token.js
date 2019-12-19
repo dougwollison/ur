@@ -10,7 +10,7 @@ export default class Token extends Emitter {
 		this.el.classList.add( 'token', side );
 	}
 
-	advance( amount = 1 ) {
+	advance( amount ) {
 		this.progress += amount;
 	}
 
