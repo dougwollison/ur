@@ -31,6 +31,7 @@ export default class Game extends Emitter {
 				// Force next turn if they roll a zero
 				if ( ! result ) {
 					this.nextPlayer();
+					return;
 				}
 
 				var validMoves = this.board.validateTokens( player.tokens, result );
