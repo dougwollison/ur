@@ -45,7 +45,7 @@ const game = new Game( {
 		width: 3,
 		height: 8,
 		squares: GAME_SQUARES,
-		finalSquare: 13,
+		finalSquare: 14,
 	},
 	player: {
 		tokenCount: 7,

@@ -36,8 +36,8 @@ export default class Board extends Emitter {
 	validateMove( token, moveBy ) {
 		var progress = token.progress + moveBy;
 
-		// Completable; valid
-		if ( progress > this.finalSquare ) {
+		// At final square; valid
+		if ( progress === this.finalSquare ) {
 			return true;
 		}
 
@@ -86,8 +86,8 @@ export default class Board extends Emitter {
 			return false;
 		}
 
-		// If past final square, complete
-		if ( progress > this.finalSquare ) {
+		// If at the final square, complete
+		if ( progress === this.finalSquare ) {
 			token.complete();
 			return false;
 		}
