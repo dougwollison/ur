@@ -34,7 +34,9 @@ export default class Board extends Emitter {
 	}
 
 	placeItem( el, top, left ) {
-		this.el.appendChild( el );
+		if ( el.parentElement !== this.el ) {
+			this.el.appendChild( el );
+		}
 
 		if ( typeof top === 'number' ) {
 			el.style.top = ( top / this.height ) * 100 + '%';

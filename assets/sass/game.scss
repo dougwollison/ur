@@ -84,8 +84,9 @@ ur-player {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	opacity: 0.5;
+	opacity: 0.3;
 	pointer-events: none;
+	transition: opacity .5s ease-out;
 
 	&.ready {
 		opacity: 1;
@@ -135,6 +136,7 @@ ur-player {
 		border: 2px solid white;
 		color: #fff;
 		font-size: 8rem;
+		transition: all .5s ease-out;
 
 		&.left {
 			background: blue;
