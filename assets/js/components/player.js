@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import Token from './token';
 
@@ -28,8 +29,12 @@ export default class Player extends React.Component {
 	}
 
 	render() {
-		const { side, tokenCount } = this.props;
+		const { ready, side, tokenCount } = this.props;
 		const { roll } = this.state;
+
+		const classes = classnames( 'ur-player', side, {
+			'is-ready': ready,
+		} );
 
 		const tokens = [];
 		for ( let i = 0; i < tokenCount; i++ ) {
@@ -37,7 +42,7 @@ export default class Player extends React.Component {
 		}
 
 		return (
-			<div className={ `ur-player ${side}` }>
+			<div className={ classes }>
 				<button className="roll" onClick={ this.rollMove }>{ roll }</button>
 				{ tokens }
 			</div>

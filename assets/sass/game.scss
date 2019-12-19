@@ -66,7 +66,7 @@ body {
 	pointer-events: none;
 	transition: opacity .5s ease-out;
 
-	&.ready {
+	&.is-ready {
 		opacity: 1;
 		pointer-events: all;
 	}
@@ -123,7 +123,7 @@ body {
 	pointer-events: none;
 	transition: opacity .5s ease-out;
 
-	&.ready {
+	&.is-ready {
 		opacity: 1;
 		pointer-events: all;
 	}

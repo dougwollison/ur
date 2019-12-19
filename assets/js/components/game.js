@@ -10,14 +10,39 @@ export default class Game extends React.Component {
 
 		this.state = {
 			ready: false,
+			currentPlayer: null,
 		};
+
+		// Bind methods
+		this.start = this.start.bind( this );
+	}
+
+	start() {
+		this.setState( {
+			ready: true,
+			currentPlayer: 0,
+		} );
+	}
+
+	nextPlayer() {
+		var current = this.state.currentPlayer;
+
+		current++;
+		if ( current >= this.props.playerSides.length ) {
+			current = 0;
+		}
+
+		this.setState( {
+			currentPlayer: current,
+		} );
 	}
 
 	render() {
 		const { playerSides, boardConfig, playerConfig } = this.props;
+		const { ready, currentPlayer } = this.state;
 
 		const classes = classnames( 'ur-game', {
-			'ready': this.state.ready,
+			'is-ready': ready,
 		} );
 
 		return (
@@ -25,11 +50,11 @@ export default class Game extends React.Component {
 				<div className={ classes }>
 					<Board { ...boardConfig } />
 					{ playerSides.map( ( side, index ) => (
-						<Player { ...playerConfig } side={ side } />
+						<Player { ...playerConfig } side={ side } ready={ currentPlayer === index } />
 					) ) }
 				</div>
 				{ this.state.ready || (
-					<button className="start" onClick={ () => this.setState( { ready: true } ) }>Start</button>
+					<button className="start" onClick={ this.start }>Start</button>
 				) }
 			</>
 		);
