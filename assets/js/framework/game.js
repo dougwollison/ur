@@ -14,10 +14,42 @@ export default class Game extends Emitter {
 		this.players = config.players.map( side => {
 			var player = new Player( { ...config.player, side } );
 
-			player.on( 'play', token => this.board.placeToken( token ) );
+			player.on( 'play', token => {
+				var goAgain = this.board.placeToken( token );
+
+				// If they can't roll again, next turn
+				if ( ! goAgain ) {
+					this.nextPlayer();
+				}
+			} );
+
+			player.on( 'roll', result => {
+				// Force next turn if they roll a zero
+				if ( ! result ) {
+					this.nextPlayer();
+				}
+			} );
+
 			this.el.appendChild( player.el );
 
 			return player;
 		} );
+
+		this.currentPlayer = -1;
+	}
+
+	start() {
+		this.nextPlayer();
+	}
+
+	nextPlayer() {
+		this.currentPlayer++;
+
+		if ( this.currentPlayer >= this.players.length ) {
+			this.currentPlayer = 0;
+		}
+
+		this.players.forEach( player => player.deactivate() );
+		this.players[ this.currentPlayer ].activate();
 	}
 }

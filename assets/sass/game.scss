@@ -48,6 +48,13 @@ ur-player {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	opacity: 0.5;
+	pointer-events: none;
+
+	&.ready {
+		opacity: 1;
+		pointer-events: all;
+	}
 
 	button {
 		position: absolute;
@@ -57,6 +64,10 @@ ur-player {
 		background: black;
 		color: white;
 		font-size: 50px;
+
+		&:empty:before {
+			content: 'Roll';
+		}
 	}
 
 	&.left {

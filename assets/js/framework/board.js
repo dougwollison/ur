@@ -63,7 +63,7 @@ export default class Board extends Emitter {
 		// If past final square, complete
 		if ( progress > this.finalSquare ) {
 			token.complete();
-			return true;
+			return false;
 		}
 
 		// Find the applicable square and place it there
@@ -97,6 +97,6 @@ export default class Board extends Emitter {
 		}
 
 		// return
-		return square;
+		return square && square.isDouble;
 	}
 }

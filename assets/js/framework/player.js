@@ -31,6 +31,8 @@ export default class Player extends Emitter {
 
 			this.currentRoll = result;
 			rollButton.textContent = result;
+
+			this.trigger( 'roll', result );
 		} );
 
 		this.inactiveTokens = [];
@@ -60,6 +62,14 @@ export default class Player extends Emitter {
 		}
 
 		this.completedTokens = [];
+	}
+
+	activate() {
+		this.el.classList.add( 'ready' );
+	}
+
+	deactivate() {
+		this.el.classList.remove( 'ready' );
 	}
 
 	activateToken() {

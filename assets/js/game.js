@@ -52,6 +52,8 @@ const game = new Game( {
 	},
 } );
 
+game.start();
+
 /*
 Game flow concept:
 1. player clicks their ROLL button, if 0, turn ends
