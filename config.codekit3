@@ -9,6 +9,14 @@
 	],
 "creatorBuild": "31934",
 "files": {
+	"/.eslintrc": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/.eslintrc",
+		"oF": 0
+		},
 	"/.gitignore": {
 		"cB": 0,
 		"ft": 8192,
@@ -34,6 +42,61 @@
 		"oA": 0,
 		"oAP": "/assets/css/game.css.map",
 		"oF": 0
+		},
+	"/assets/js/components/board.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/components/board.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/components/game.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/components/game.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/components/player.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/components/player.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/components/square.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/components/square.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/components/token.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/assets/js/components/token.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
 		},
 	"/assets/js/framework/board.js": {
 		"bF": 4,
@@ -62,7 +125,7 @@
 		"ft": 64,
 		"ma": 1,
 		"mi": 1,
-		"oA": 1,
+		"oA": 0,
 		"oAP": "/assets/js/framework/game.min.js",
 		"oF": 0,
 		"sC": 3,
@@ -105,7 +168,7 @@
 		"bF": 4,
 		"ft": 64,
 		"ma": 1,
-		"mi": 1,
+		"mi": 0,
 		"oA": 0,
 		"oAP": "/assets/js/game.min.js",
 		"oF": 0,
@@ -173,6 +236,53 @@
 		"oAP": "/LICENSE",
 		"oF": 0
 		},
+	"/node_modules": {
+		"ft": 65536,
+		"oA": 2,
+		"oAP": "/build/node_modules",
+		"oF": 0
+		},
+	"/node_modules/classnames/index.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/classnames/index.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/node_modules/react-dom/index.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react-dom/index.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/node_modules/react/index.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 1,
+		"oAP": "/node_modules/react/index.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/package-lock.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/package-lock-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
+		},
 	"/package.json": {
 		"ft": 524288,
 		"oA": 1,
@@ -219,7 +329,7 @@
 	"animateCSSInjections": 1,
 	"autoBuildNewItems": 1,
 	"autoprefixerEnableIEGrid": 0,
-	"babel7PresetType": 1,
+	"babel7PresetType": 2,
 	"babelAllowRCFiles": 0,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
@@ -646,7 +756,7 @@
 			}
 		},
 	"environmentVariablesString": "NODE_ENV:::production",
-	"esLintConfigFileHandlingType": 0,
+	"esLintConfigFileHandlingType": 1,
 	"esLintECMAVersion": 9,
 	"esLintEnvironmentsMask": 1,
 	"esLintRules": {
