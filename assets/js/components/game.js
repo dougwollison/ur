@@ -4,6 +4,16 @@ import classnames from 'classnames';
 import Board from './board.js';
 import Player from './player.js';
 
+function findSquare( squares, index, side ) {
+	var result = squares.filter( s => s.index === index );
+
+	if ( result.length > 1 ) {
+		result = result.filter( s => s.side === side );
+	}
+
+	return result[0];
+}
+
 export default class Game extends React.Component {
 	constructor( props ) {
 		super( props );

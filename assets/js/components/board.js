@@ -3,8 +3,6 @@ import React from 'react';
 import Square from './square.js';
 import Token from './token.js';
 
-import findSquare from '../utilities/findSquare.js';
-
 export default class Board extends React.Component {
 	constructor( props ) {
 		super( props );
@@ -24,16 +22,15 @@ export default class Board extends React.Component {
 		} );
 
 		const theTokens = tokens.map( config => {
-			const square = findSquare( squares, config.progress, config.side );
-
-			if ( ! square ) {
+			// skip tokens that don't have a position
+			if ( typeof config.top === 'undefined' ) {
 				return null;
 			}
 
 			const props = {
 				side: config.side,
-				top: ( square.top / height ) * 100 + '%',
-				left: ( square.left / width ) * 100 + '%',
+				top: ( config.top / height ) * 100 + '%',
+				left: ( config.left / width ) * 100 + '%',
 			};
 
 			return ( <Token { ...props } onClick={ () => onPlay( config ) } /> );
