@@ -196,6 +196,18 @@ ur-player {
 			margin-top: -5rem;
 		}
 
+		&.disabled {
+			border-color: rgba(#fff, .5);
+			pointer-events: none;
+
+			&.left {
+				background: mix(blue, white);
+			}
+			&.right {
+				background: mix(red, white);
+			}
+		}
+
 		&.complete {
 			justify-self: flex-end;
 			margin-top: auto;

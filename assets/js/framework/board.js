@@ -33,6 +33,38 @@ export default class Board extends Emitter {
 		return result[0];
 	}
 
+	validateMove( token, moveBy ) {
+		var progress = token.progress + moveBy;
+
+		// Completable; valid
+		if ( progress >= this.finalSquare ) {
+			return true;
+		}
+
+		var square = this.findSquare( progress, token.side );
+
+		// Somehow no square found; invalid
+		if ( ! square ) {
+			return false;
+		}
+
+		// Square is occupied by own token; invalid
+		if ( square.token && square.token.side === token.side ) {
+			return false;
+		}
+
+		// Square is capturable but Safe, check next square
+		if ( square.token && square.isSafe ) {
+			return this.validateMove( token, moveBy + 1 )
+		}
+
+		return true;
+	}
+
+	validateTokens( tokens, moveBy ) {
+		return tokens.filter( token => this.validateMove( token, moveBy ) );
+	}
+
 	placeItem( el, top, left ) {
 		if ( el.parentElement !== this.el ) {
 			this.el.appendChild( el );
@@ -49,9 +81,8 @@ export default class Board extends Emitter {
 	placeToken( token ) {
 		var progress = token.progress;
 
-		// If not in play, abort
-		if ( progress < 0 ) {
-			token.trigger( 'place' );
+		// If somehow not a valid move, abort
+		if ( ! this.validateMove( token, 0 ) ) {
 			return false;
 		}
 
@@ -64,30 +95,16 @@ export default class Board extends Emitter {
 		// Find the applicable square and place it there
 		var square = this.findSquare( progress, token.side );
 		if ( square ) {
-			const capture = square.token;
-
-			// Check if there is a token to capture
-			if ( capture ) {
-				// Can't capture if own token, abort
-				if ( capture.side === token.side ) {
-					return false;
-				}
-
-				// Can't capture if safe, move ahead
-				if ( square.isSafe ) {
-					token.advance( 1 );
-					return this.place( token );
-				}
-
-				// Reset the target token
-				square.removeToken( capture );
-				capture.reset();
+			// Reset captured token if found
+			if ( square.token ) {
+				square.token.reset();
 			}
 
-			// Place the token to the square
+			// (Re)place the token in the square
 			square.addToken( token );
 			token.trigger( 'place' );
 
+			// Draw on board
 			this.placeItem( token.el, square.top, square.left );
 		}
 

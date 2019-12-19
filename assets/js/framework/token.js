@@ -27,4 +27,12 @@ export default class Token extends Emitter {
 		this.trigger( 'complete' );
 		this.trigger( 'place' );
 	}
+
+	enable() {
+		this.el.classList.remove( 'disabled' );
+	}
+
+	disable() {
+		this.el.classList.add( 'disabled' );
+	}
 }

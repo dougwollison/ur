@@ -23,6 +23,8 @@ export default class Game extends Emitter {
 				} else {
 					this.nextPlayer();
 				}
+
+				player.tokens.forEach( token => token.enable() );
 			} );
 
 			player.on( 'roll', result => {
@@ -30,6 +32,14 @@ export default class Game extends Emitter {
 				if ( ! result ) {
 					this.nextPlayer();
 				}
+
+				var validMoves = this.board.validateTokens( player.tokens, result );
+				if ( validMoves.length === 0 ) {
+					this.nextPlayer();
+				}
+
+				player.tokens.forEach( token => token.disable() );
+				validMoves.forEach( token => token.enable() );
 			} );
 
 			this.el.appendChild( player.el );
