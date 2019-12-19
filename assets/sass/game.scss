@@ -31,6 +31,7 @@ ur-board {
 
 	ur-token {
 		position: absolute;
+		margin: 10px;
 	}
 }
 	ur-square {
@@ -48,13 +49,31 @@ ur-player {
 	flex-direction: column;
 	justify-content: flex-start;
 
+	button {
+		position: absolute;
+		top: 0;
+		width: 100px;
+		height: 100px;
+		background: black;
+		color: white;
+		font-size: 50px;
+	}
+
 	&.left {
 		left: 0;
 		background: lighten(blue, 30);
+
+		button {
+			left: 100%;
+		}
 	}
 	&.right {
 		right: 0;
 		background: lighten(red, 30);
+
+		button {
+			right: 100%;
+		}
 	}
 }
 	ur-token {
