@@ -41,13 +41,14 @@ export default class Game extends React.Component {
 		} );
 	}
 
-	nextPlayer() {
-		var current = this.state.currentPlayer;
+	nextPlayer( current ) {
 		const tokens = [ ...this.state.tokens ];
 
-		current++;
-		if ( current >= this.props.playerSides.length ) {
-			current = 0;
+		if ( typeof current === 'undefined' ) {
+			current = this.state.currentPlayer + 1;
+			if ( current >= this.props.playerSides.length ) {
+				current = 0;
+			}
 		}
 
 		tokens.forEach( token => token.isDisabled = false );
