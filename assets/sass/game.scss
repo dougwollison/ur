@@ -7,7 +7,7 @@ $board-height: 8;
 	box-sizing: border-box;
 }
 
-html, body {
+html, body, #root {
 	width: 100%;
 	height: 100%;
 }
@@ -41,7 +41,7 @@ body {
 	color: white;
 }
 
-#start {
+.start {
 	position: absolute;
 	z-index: 10;
 	top: 50%;
@@ -55,15 +55,7 @@ body {
 	margin: -50px 0 0 -50px;
 }
 
-ur-game,
-ur-board,
-ur-square,
-ur-player,
-ur-token {
-	display: block;
-}
-
-ur-game {
+.ur-game {
 	position: relative;
 	width: 100%;
 	height: 100%;
@@ -80,7 +72,7 @@ ur-game {
 	}
 }
 
-ur-board {
+.ur-board {
 	position: relative;
 
 	svg {
@@ -89,12 +81,12 @@ ur-board {
 		max-height: 80vh;
 	}
 
-	ur-token {
+	.ur-token {
 		position: absolute;
 		margin: 1rem;
 	}
 }
-	ur-square {
+	.ur-square {
 		position: absolute;
 		width: (1/$board-width) * 100%;
 		height: (1/$board-height) * 100%;
@@ -118,7 +110,7 @@ ur-board {
 		}
 	}
 
-ur-player {
+.ur-player {
 	position: absolute;
 	top: 0;
 	width: 10rem;
@@ -173,7 +165,7 @@ ur-player {
 		}
 	}
 }
-	ur-token {
+	.ur-token {
 		width: 8rem;
 		height: 8rem;
 		border-radius: 50%;
@@ -192,7 +184,7 @@ ur-player {
 			background: red;
 		}
 
-		ur-player & + & {
+		.ur-player & + & {
 			margin-top: -5rem;
 		}
 
@@ -217,7 +209,7 @@ ur-player {
 				color: gold;
 			}
 
-			ur-player & + & {
+			.ur-player & + & {
 				margin-top: -5rem;
 			}
 		}
@@ -228,10 +220,10 @@ ur-player {
 		font-size: (1/6) * 10vw;
 	}
 
-	ur-game {
+	.ur-game {
 		padding: 10rem;
 	}
-		ur-board {
+		.ur-board {
 			svg {
 				max-height: 80rem;
 			}

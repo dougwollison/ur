@@ -1,4 +1,7 @@
-import Game from './framework/game.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Game from './components/game.js';
 
 const GAME_SQUARES = [
 	/* ==========
@@ -39,35 +42,17 @@ const GAME_SQUARES = [
 	{ index: 11, side: 'middle', left: 1, top: 7 },
 ];
 
-const game = new Game( {
-	players: [ 'left', 'right' ],
-	board: {
+const gameConfig = {
+	boardConfig: {
 		width: 3,
 		height: 8,
 		squares: GAME_SQUARES,
 		finalSquare: 14,
 	},
-	player: {
+	players: [ 'left', 'right' ],
+	playerConfig: {
 		tokenCount: 7,
 	},
-} );
+};
 
-document.getElementById( 'start' ).addEventListener( 'click', function() {
-	this.hidden = true;
-	game.start();
-} );
-
-/*
-Game flow concept:
-1. player clicks their ROLL button, if 0, turn ends
-2. valid tokens will be highlighted, if none are, turn ends
-3. player selects valid token to place/move
-4. if enemy token is captured, return to enemy players hand
-5. if token reaches end, move to complete pile
-6. if landing on a double, back to step 1
-7. if last token is completed, end
-*/
-
-document.body.appendChild( game.el );
-
-window.game = game;
+ReactDOM.render( <Game { ...gameConfig } />, document.getElementById( 'root' ) );
