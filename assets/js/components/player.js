@@ -12,7 +12,7 @@ export default function Player( { ready, roll, side, tokens = [], onRoll, onPlay
 		<div className={ classes }>
 			<button className="roll"
 				onClick={ onRoll }
-				disabled={ ! ready }
+				disabled={ ! ready || roll !== false }
 				>
 				{ roll }
 			</button>

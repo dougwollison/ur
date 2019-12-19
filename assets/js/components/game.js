@@ -22,7 +22,7 @@ export default class Game extends React.Component {
 		this.state = {
 			ready: false,
 			currentPlayer: null,
-			currentRoll: null,
+			currentRoll: false,
 			tokens,
 		};
 
@@ -49,6 +49,7 @@ export default class Game extends React.Component {
 
 		this.setState( {
 			currentPlayer: current,
+			currentRoll: false,
 		} );
 	}
 
