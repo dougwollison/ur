@@ -18,4 +18,22 @@ export default class Square extends Emitter {
 		this.el.classList.toggle( 'is-double', this.isDouble );
 		this.el.classList.toggle( 'is-safe', this.isSafe );
 	}
+
+	addToken( token ) {
+		if ( token.square && token.square !== this ) {
+			token.square.removeToken( token );
+		}
+
+		this.token = token;
+		token.square = this;
+	}
+
+	removeToken( token ) {
+		if ( this.token === token ) {
+			this.token = null;
+		}
+		if ( token.square === this ) {
+			token.square = null;
+		}
+	}
 }

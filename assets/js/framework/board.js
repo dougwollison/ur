@@ -78,11 +78,12 @@ export default class Board extends Emitter {
 				}
 
 				// Reset the target token
+				square.removeToken( capture );
 				capture.reset();
 			}
 
 			// Place the token to the square
-			square.token = token;
+			square.addToken( token );
 
 			this.placeItem( token.el, square.top, square.left );
 		}
