@@ -43,6 +43,36 @@
 		"oAP": "/assets/css/game.css.map",
 		"oF": 0
 		},
+	"/assets/js/app.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/assets/js/app.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/app.min.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/assets/js/app.min.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/assets/js/app.min.js.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/assets/js/app.min.js.map",
+		"oF": 0
+		},
 	"/assets/js/components/board.js": {
 		"bF": 4,
 		"ft": 64,
@@ -163,36 +193,6 @@
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
-		},
-	"/assets/js/game.js": {
-		"bF": 4,
-		"ft": 64,
-		"ma": 1,
-		"mi": 0,
-		"oA": 0,
-		"oAP": "/assets/js/game.min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/assets/js/game.min.js": {
-		"bF": 4,
-		"ft": 64,
-		"ma": 1,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/assets/js/game.min.min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/assets/js/game.min.js.map": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/assets/js/game.min.js.map",
-		"oF": 0
 		},
 	"/assets/sass/game.scss": {
 		"aP": 1,
