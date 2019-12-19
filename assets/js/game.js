@@ -40,13 +40,14 @@ const GAME_SQUARES = [
 ];
 
 const game = new Game( {
+	players: [ 'left', 'right' ],
 	board: {
 		width: 3,
 		height: 8,
 		squares: GAME_SQUARES,
 		finalSquare: 13,
 	},
-	players: {
+	player: {
 		tokenCount: 7,
 	},
 } );
