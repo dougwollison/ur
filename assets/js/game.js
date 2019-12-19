@@ -52,7 +52,10 @@ const game = new Game( {
 	},
 } );
 
-game.start();
+document.getElementById( 'start' ).addEventListener( 'click', function() {
+	this.hidden = true;
+	game.start();
+} );
 
 /*
 Game flow concept:

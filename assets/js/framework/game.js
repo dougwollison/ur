@@ -41,6 +41,7 @@ export default class Game extends Emitter {
 	}
 
 	start() {
+		this.el.classList.add( 'ready' );
 		this.nextPlayer();
 	}
 

@@ -26,6 +26,7 @@ body {
 
 #wtf {
 	position: absolute;
+	z-index: 10;
 	top: 0;
 	left: 10rem;
 	right: 10rem;
@@ -33,6 +34,20 @@ body {
 	line-height: 10rem;
 	text-align: center;
 	color: black;
+}
+
+#start {
+	position: absolute;
+	z-index: 10;
+	top: 50%;
+	left: 50%;
+	width: 100px;
+	height: 100px;
+	background: purple;
+	color: white;
+	font-size: 30px;
+	border-radius: 50%;
+	margin: -50px 0 0 -50px;
 }
 
 ur-game,
@@ -50,6 +65,14 @@ ur-game {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	opacity: 0.5;
+	pointer-events: none;
+	transition: opacity .5s ease-out;
+
+	&.ready {
+		opacity: 1;
+		pointer-events: all;
+	}
 }
 
 ur-board {
