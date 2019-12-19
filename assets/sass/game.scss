@@ -162,3 +162,18 @@ ur-player {
 			}
 		}
 	}
+
+@media screen and (max-width:500px) {
+	html {
+		font-size: (1/6) * 10vw;
+	}
+
+	ur-game {
+		padding: 10rem;
+	}
+		ur-board {
+			svg {
+				max-height: 80rem;
+			}
+		}
+}
