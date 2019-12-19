@@ -70,6 +70,43 @@ export default class Game extends React.Component {
 		return result[0];
 	}
 
+	findToken( square ) {
+		return this.state.tokens.find( token => {
+			return token.top === square.top && token.left === square.left;
+		} );
+	}
+
+	validateMove( token, moveBy ) {
+		const progress = token.progress + moveBy;
+
+		// At final square; valid
+		if ( progress === this.props.finalSquare ) {
+			return moveBy;
+		}
+
+		var square = this.findSquare( progress, token.side );
+
+		// Somehow no square found; invalid
+		if ( ! square ) {
+			return 0;
+		}
+
+		// Check if square is occupied
+		var capture = this.findToken( square );
+
+		// Square is occupied by own token; invalid
+		if ( capture && capture.side === token.side ) {
+			return 0;
+		}
+
+		// Square is capturable but Safe, check next square
+		if ( capture && square.isSafe ) {
+			return this.validateMove( token, moveBy + 1 );
+		}
+
+		return moveBy;
+	}
+
 	handleRoll() {
 		var result = 0;
 
@@ -78,23 +115,47 @@ export default class Game extends React.Component {
 			result += Math.floor( Math.random() * 2 ) ? 1 : 0;
 		}
 
+		console.log( result );
+
 		this.setState( {
 			currentRoll: result,
 		} );
 
-		// Force next turn if they roll a zero
+		// End turn if a zero was rolled
 		if ( ! result ) {
 			this.nextPlayer();
 			return;
 		}
 
-		console.log( result );
+		const player = this.props.playerSides[ this.state.currentPlayer ];
+		const playerTokens = this.state.tokens.filter( token => token.side === player );
+
+		// Get the list of valid moves, if none, end turm
+		const validMoves = playerTokens.filter( token => this.validateMove( token, result ) !== 0 );
+		if ( validMoves.length === 0 ) {
+			this.nextPlayer();
+			return;
+		}
+
+		// Disable all player tokens except the valid ones
+		playerTokens.forEach( token => token.isDisabled = true );
+		validMoves.forEach( token => token.isDisabled = false );
+
+		this.setState( {
+			tokens: [ ...this.state.tokens ],
+		} );
 	}
 
 	handlePlay( token ) {
-		const tokens = [ ...this.state.tokens ];
+		// Get the move, validate it
+		const moveBy = this.validateMove( token, this.state.currentRoll );
 
-		token.progress += this.state.currentRoll;
+		// If somehow not a valid move, abort
+		if ( ! moveBy ) {
+			return;
+		}
+
+		const progress = token.progress + moveBy;
 
 		// If at the final square, mark as complete
 		if ( token.progress === this.props.finalSquare ) {
@@ -105,25 +166,33 @@ export default class Game extends React.Component {
 			this.nextPlayer();
 		} else {
 			// Find the applicable square and place it there
-			var square = this.findSquare( token.progress, token.side );
-			if ( square ) {
-				// Update token position/status
-				token.top = square.top;
-				token.left = square.left;
-				token.status = 'active';
+			const square = this.findSquare( progress, token.side );
 
-				if ( square.isDouble ) {
-					this.setState( { currentRoll: false } );
-				}
+			// Find the existing token, capture it if found
+			const capture = this.findToken( square );
+			if ( capture ) {
+				delete capture.top;
+				delete capture.left;
+				capture.status = 'inactive';
 			}
 
-			// If no square or otherwise not a double, next player
-			if ( ! square || ! square.isDouble ) {
+			// Update token position/status
+			token.top = square.top;
+			token.left = square.left;
+			token.status = 'active';
+			token.progress += moveBy;
+
+			// If double, restart turn, otherwise end
+			if ( square.isDouble ) {
+				this.nextPlayer( this.state.currentPlayer );
+			} else {
 				this.nextPlayer();
 			}
 		}
 
-		this.setState( { tokens } );
+		this.setState( {
+			tokens: [ ...this.state.tokens ],
+		} );
 	}
 
 	render() {
