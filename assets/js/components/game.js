@@ -172,6 +172,7 @@ export default class Game extends React.Component {
 				delete capture.top;
 				delete capture.left;
 				capture.status = 'inactive';
+				capture.progress = -1;
 			}
 
 			// Update token position/status
