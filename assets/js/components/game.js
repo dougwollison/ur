@@ -124,25 +124,28 @@ export default class Game extends React.Component {
 			currentRoll: result,
 		} );
 
-		// End turn if a zero was rolled
+		// If rolled 0, end turn after delay
 		if ( ! result ) {
-			this.nextPlayer();
+			setTimeout( () => this.nextPlayer(), 1000 );
 			return;
 		}
 
+		// Get the current player and their tokens
 		const player = this.props.playerSides[ this.state.currentPlayer ];
 		const playerTokens = this.state.tokens.filter( token => token.side === player );
 
-		// Get the list of valid moves, if none, end turm
+		// Get the list of valid moves
 		const validMoves = playerTokens.filter( token => this.validateMove( token, result ) !== 0 );
-		if ( validMoves.length === 0 ) {
-			this.nextPlayer();
-			return;
-		}
 
 		// Disable all player tokens except the valid ones
 		playerTokens.forEach( token => token.isDisabled = true );
 		validMoves.forEach( token => token.isDisabled = false );
+
+		// If no valid moves, end turn after delay
+		if ( validMoves.length === 0 ) {
+			setTimeout( () => this.nextPlayer(), 1000 );
+			return;
+		}
 
 		this.setState( {
 			tokens: [ ...this.state.tokens ],
