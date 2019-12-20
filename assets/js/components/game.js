@@ -161,8 +161,9 @@ export default class Game extends React.Component {
 		const progress = token.progress + moveBy;
 
 		// If at the final square, mark as complete
-		if ( token.progress === this.props.finalSquare ) {
-			token.status == 'complete';
+		if ( progress === this.props.finalSquare ) {
+			token.status = 'complete';
+			token.progress += moveBy;
 			delete token.top;
 			delete token.left;
 
