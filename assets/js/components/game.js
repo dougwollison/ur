@@ -79,6 +79,11 @@ export default class Game extends React.Component {
 	validateMove( token, moveBy ) {
 		const progress = token.progress + moveBy;
 
+		// Not in play; invalid
+		if ( token.status === 'completed' ) {
+			return 0;
+		}
+
 		// At final square; valid
 		if ( progress === this.props.finalSquare ) {
 			return moveBy;
