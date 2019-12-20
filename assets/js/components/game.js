@@ -175,13 +175,20 @@ export default class Game extends Component {
 		// Get the square the token lands on
 		const lastSquare = this.findSquare( start + moveBy, token.side );
 
+		// Get the capture to perform when done
+		const capture = this.findToken( lastSquare );
+
 		const step = () => {
 			// If done moving, handle last square
 			if ( moves > moveBy ) {
 				this.setState( { animating: false } );
 
-				// Find the existing token, capture it if found
-				const capture = this.findToken( lastSquare );
+				// If end square, mark token as complete
+				if ( lastSquare.isEnd ) {
+					token.status = 'complete';
+				}
+
+				// Perform capture if needed
 				if ( capture ) {
 					delete capture.top;
 					delete capture.left;
@@ -189,10 +196,6 @@ export default class Game extends Component {
 					capture.progress = -1;
 				}
 
-				// If end square, mark token as complete
-				if ( lastSquare.isEnd ) {
-					token.status = 'complete';
-				}
 				this.setState( {
 					tokens: [ ...this.state.tokens ],
 				} );
