@@ -51,7 +51,7 @@ export default class Game extends Component {
 			}
 		}
 
-		tokens.forEach( token => token.isDisabled = false );
+		tokens.forEach( token => token.isInvalid = false );
 
 		this.setState( {
 			currentPlayer: current,
@@ -138,7 +138,7 @@ export default class Game extends Component {
 		const validMoves = playerTokens.filter( token => this.validateMove( token, result ) !== 0 );
 
 		// Mark tokens that aren't valid moves as invalid
-		playerTokens.forEach( token => token.inInvalid = validMoves.indexOf( token ) < 0 );
+		playerTokens.forEach( token => token.isInvalid = validMoves.indexOf( token ) < 0 );
 
 		// If no valid moves, end turn after delay
 		if ( validMoves.length === 0 ) {

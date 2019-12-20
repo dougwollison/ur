@@ -6,7 +6,7 @@ export default function Token( props ) {
 		'ur-token',
 		props.side,
 		`is-${props.status}`,
-		{ 'is-invalid': props.inInvalid }
+		{ 'is-invalid': props.isInvalid }
 	);
 
 	const position = {
