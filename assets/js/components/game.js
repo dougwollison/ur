@@ -208,10 +208,7 @@ export default class Game extends Component {
 		} );
 	}
 
-	render() {
-		const { squares, playerSides, boardConfig, playerConfig } = this.props;
-		const { ready, currentPlayer, currentRoll, tokens } = this.state;
-
+	render( { squares, playerSides, boardConfig, playerConfig }, { ready, currentPlayer, currentRoll, tokens } ) {
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
 		} );
