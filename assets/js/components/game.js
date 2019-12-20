@@ -193,6 +193,9 @@ export default class Game extends Component {
 				if ( lastSquare.isEnd ) {
 					token.status = 'complete';
 				}
+				this.setState( {
+					tokens: [ ...this.state.tokens ],
+				} );
 
 				// If double, restart turn, otherwise end
 				if ( lastSquare.isDouble ) {
