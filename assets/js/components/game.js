@@ -115,8 +115,6 @@ export default class Game extends React.Component {
 			result += Math.floor( Math.random() * 2 ) ? 1 : 0;
 		}
 
-		console.log( result );
-
 		this.setState( {
 			currentRoll: result,
 		} );
