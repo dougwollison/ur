@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { h, render } from 'preact';
 
 import Game from './components/game.js';
 
@@ -54,4 +53,4 @@ const gameConfig = {
 	playerSides: [ 'left', 'right' ],
 };
 
-ReactDOM.render( <Game { ...gameConfig } />, document.getElementById( 'root' ) );
+render( <Game { ...gameConfig } />, document.getElementById( 'root' ) );

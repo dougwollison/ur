@@ -4,13 +4,21 @@
     "ecmaFeatures": {
 	  "experimentalObjectRestSpread": true,
       "jsx": true
-    }
+    },
+    "sourceType": "module"
   },
   "plugins": [
     "react"
   ],
+  "settings": {
+    "react": {
+      "pragma": "h",
+      "pragmaFrag": "Fragment"
+    }
+  },
   "rules": {
+	"react/jsx-fragments": "error",
     "react/jsx-uses-react": "error",
-    "react/jsx-uses-vars": "error",
+    "react/jsx-uses-vars": "error"
   }
 }

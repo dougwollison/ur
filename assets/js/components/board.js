@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 
 import Square from './square.js';
 import Token from './token.js';

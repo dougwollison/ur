@@ -1,4 +1,4 @@
-import React from 'react';
+import { h } from 'preact';
 import classnames from 'classnames';
 
 export default function Token( props ) {

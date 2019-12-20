@@ -1,10 +1,10 @@
-import React from 'react';
+import { h, Component, Fragment } from 'preact';
 import classnames from 'classnames';
 
 import Board from './board.js';
 import Player from './player.js';
 
-export default class Game extends React.Component {
+export default class Game extends Component {
 	constructor( props ) {
 		super( props );
 
