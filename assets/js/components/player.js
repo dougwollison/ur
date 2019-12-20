@@ -8,6 +8,9 @@ export default function Player( { ready, roll, side, tokens = [], onRoll, onPlay
 		'is-ready': ready,
 	} );
 
+	const inactive = tokens.filter( token => token.status === 'inactive' );
+	const complete = tokens.filter( token => token.status === 'complete' );
+
 	return (
 		<div className={ classes }>
 			<button className="roll"
@@ -16,12 +19,19 @@ export default function Player( { ready, roll, side, tokens = [], onRoll, onPlay
 				>
 				{ roll }
 			</button>
-			{ tokens.map( config => (
-				<Token { ...config }
-					side={ side }
-					onClick={ () => onPlay( config ) }
-					/>
-			) ) }
+			<div className="ur-player-tokens inactive">
+				{ inactive.map( config => (
+					<Token { ...config }
+						side={ side }
+						onClick={ () => onPlay( config ) }
+						/>
+				) ) }
+			</div>
+			<div className="ur-player-tokens completed">
+				{ complete.map( () => (
+					<Token status="complete" side={ side } />
+				) ) }
+			</div>
 		</div>
 	);
 }
