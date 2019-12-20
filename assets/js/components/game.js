@@ -105,11 +105,6 @@ export default class Game extends Component {
 			return 0;
 		}
 
-		// At final square; valid
-		if ( progress === this.props.finalSquare ) {
-			return moveBy;
-		}
-
 		var square = this.findSquare( progress, token.side );
 
 		// Somehow no square found; invalid
@@ -188,39 +183,34 @@ export default class Game extends Component {
 
 		const progress = token.progress + moveBy;
 
-		// If at the final square, mark as complete
-		if ( progress === this.props.finalSquare ) {
+		// Find the applicable square and place it there
+		const square = this.findSquare( progress, token.side );
+
+		// Find the existing token, capture it if found
+		const capture = this.findToken( square );
+		if ( capture ) {
+			delete capture.top;
+			delete capture.left;
+			capture.status = 'inactive';
+			capture.progress = -1;
+		}
+
+		// Update token position/status
+		token.top = square.top;
+		token.left = square.left;
+		token.status = 'active';
+		token.progress += moveBy;
+
+		// If end square, mark token as complete
+		if ( square.isEnd ) {
 			token.status = 'complete';
-			token.progress += moveBy;
-			delete token.top;
-			delete token.left;
+		}
 
-			this.nextPlayer();
+		// If double, restart turn, otherwise end
+		if ( square.isDouble ) {
+			this.nextPlayer( this.state.currentPlayer );
 		} else {
-			// Find the applicable square and place it there
-			const square = this.findSquare( progress, token.side );
-
-			// Find the existing token, capture it if found
-			const capture = this.findToken( square );
-			if ( capture ) {
-				delete capture.top;
-				delete capture.left;
-				capture.status = 'inactive';
-				capture.progress = -1;
-			}
-
-			// Update token position/status
-			token.top = square.top;
-			token.left = square.left;
-			token.status = 'active';
-			token.progress += moveBy;
-
-			// If double, restart turn, otherwise end
-			if ( square.isDouble ) {
-				this.nextPlayer( this.state.currentPlayer );
-			} else {
-				this.nextPlayer();
-			}
+			this.nextPlayer();
 		}
 
 		this.setState( {

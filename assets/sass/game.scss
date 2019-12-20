@@ -81,6 +81,11 @@ body {
 		font-size: 10rem;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
+		&.is-start,
+		&.is-end {
+			display: none;
+		}
+
 		&.is-safe {
 			&:before {
 				content: '\2726';

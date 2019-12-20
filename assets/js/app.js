@@ -15,20 +15,24 @@ const GAME_SQUARES = [
 	========== */
 
 	// Left Squares
+	{ index: -1, side: 'left',   left: 0, top: 4, isStart: true },
 	{ index: 0,  side: 'left',   left: 0, top: 3 },
 	{ index: 1,  side: 'left',   left: 0, top: 2 },
 	{ index: 2,  side: 'left',   left: 0, top: 1 },
 	{ index: 3,  side: 'left',   left: 0, top: 0, isDouble: true },
 	{ index: 12, side: 'left',   left: 0, top: 7 },
 	{ index: 13, side: 'left',   left: 0, top: 6, isDouble: true },
+	{ index: 14, side: 'left',   left: 0, top: 5, isEnd: true },
 
 	// Right Squares
+	{ index: -1, side: 'right',  left: 2, top: 4, isStart: true },
 	{ index: 0,  side: 'right',  left: 2, top: 3 },
 	{ index: 1,  side: 'right',  left: 2, top: 2 },
 	{ index: 2,  side: 'right',  left: 2, top: 1 },
 	{ index: 3,  side: 'right',  left: 2, top: 0, isDouble: true },
 	{ index: 12, side: 'right',  left: 2, top: 7 },
 	{ index: 13, side: 'right',  left: 2, top: 6, isDouble: true },
+	{ index: 14, side: 'right',  left: 2, top: 5, isEnd: true },
 
 	// Middle/Combat Squares
 	{ index: 4,  side: 'middle', left: 1, top: 0 },
@@ -43,7 +47,6 @@ const GAME_SQUARES = [
 
 const gameConfig = {
 	squares: GAME_SQUARES,
-	finalSquare: 14,
 	rollCount: 4,
 	tokenCount: 7,
 	boardConfig: {
