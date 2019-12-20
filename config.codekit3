@@ -9,6 +9,14 @@
 	],
 "creatorBuild": "31934",
 "files": {
+	"/.babelrc": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/.babelrc",
+		"oF": 0
+		},
 	"/.eslintrc": {
 		"cB": 0,
 		"ft": 8192,
@@ -187,24 +195,13 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/node_modules/react-dom/index.js": {
+	"/node_modules/preact/dist/preact.module.js": {
 		"bF": 4,
 		"ft": 64,
 		"ma": 1,
 		"mi": 1,
 		"oA": 1,
-		"oAP": "/node_modules/react-dom/index.min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/node_modules/react/index.js": {
-		"bF": 4,
-		"ft": 64,
-		"ma": 1,
-		"mi": 1,
-		"oA": 1,
-		"oAP": "/node_modules/react/index.min.js",
+		"oAP": "/node_modules/preact/dist/preact.module.min.js",
 		"oF": 0,
 		"sC": 3,
 		"tS": 1
@@ -264,7 +261,7 @@
 	"autoBuildNewItems": 1,
 	"autoprefixerEnableIEGrid": 0,
 	"babel7PresetType": 2,
-	"babelAllowRCFiles": 0,
+	"babelAllowRCFiles": 1,
 	"babelAuxiliaryCommentAfter": "",
 	"babelAuxiliaryCommentBefore": "",
 	"babelConfigType": 0,
@@ -1444,7 +1441,7 @@
 			},
 		"no-unused-vars": {
 			"active": 1,
-			"optionString": "{'vars': 'all', 'args': 'after-used', 'caughtErrors': 'none', 'ignoreRestSiblings': false}"
+			"optionString": "{'vars': 'all', 'args': 'after-used', 'caughtErrors': 'none', 'ignoreRestSiblings': false,'varsIgnorePattern':'Fragment'}"
 			},
 		"no-use-before-define": {
 			"active": 0,
