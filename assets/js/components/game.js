@@ -16,7 +16,7 @@ export default class Game extends Component {
 					key: side + i,
 					progress: -1,
 					status: 'inactive',
-					isDisabled: false,
+					inInvalid: false,
 				} );
 			}
 		} );
@@ -137,9 +137,8 @@ export default class Game extends Component {
 		// Get the list of valid moves
 		const validMoves = playerTokens.filter( token => this.validateMove( token, result ) !== 0 );
 
-		// Disable all player tokens except the valid ones
-		playerTokens.forEach( token => token.isDisabled = true );
-		validMoves.forEach( token => token.isDisabled = false );
+		// Mark tokens that aren't valid moves as invalid
+		playerTokens.forEach( token => token.inInvalid = validMoves.indexOf( token ) < 0 );
 
 		// If no valid moves, end turn after delay
 		if ( validMoves.length === 0 ) {
