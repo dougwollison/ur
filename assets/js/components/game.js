@@ -153,6 +153,11 @@ export default class Game extends React.Component {
 	}
 
 	handlePlay( token ) {
+		// If not the current player's token, ignore
+		if ( token.side !== this.props.playerSides[ this.state.currentPlayer ] ) {
+			return;
+		}
+
 		// Get the move, validate it
 		const moveBy = this.validateMove( token, this.state.currentRoll );
 
