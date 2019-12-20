@@ -220,6 +220,7 @@ export default class Game extends Component {
 			setTimeout( step, 500 );
 		};
 
+		this.setState( { animating: true } );
 		step();
 	}
 
