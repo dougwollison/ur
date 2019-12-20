@@ -1,20 +1,15 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 
-export default function Token( props ) {
+export default function Token( { side, status, isInvalid, layout, onClick } ) {
 	const classes = classnames(
 		'ur-token',
-		props.side,
-		`is-${props.status}`,
-		{ 'is-invalid': props.isInvalid }
+		side,
+		`is-${status}`,
+		{ 'is-invalid': isInvalid }
 	);
 
-	const position = {
-		top: props.top,
-		left: props.left,
-	};
-
 	return (
-		<button className={ classes } style={ position } onClick={ props.onClick }></button>
+		<button className={ classes } style={ layout } onClick={ onClick }></button>
 	);
 }

@@ -3,6 +3,7 @@ import classnames from 'classnames';
 
 import Board from './board.js';
 import Player from './player.js';
+import Token from './token.js';
 
 export default class Game extends Component {
 	constructor( props ) {
@@ -22,6 +23,7 @@ export default class Game extends Component {
 		} );
 
 		this.state = {
+			canvas: { width: 0, height: 0 },
 			ready: false,
 			currentPlayer: null,
 			currentRoll: false,
@@ -29,9 +31,28 @@ export default class Game extends Component {
 		};
 
 		// Bind methods
+		this.updateCanvas = this.updateCanvas.bind( this );
 		this.start = this.start.bind( this );
 		this.handleRoll = this.handleRoll.bind( this );
 		this.handlePlay = this.handlePlay.bind( this );
+	}
+
+	updateCanvas() {
+		this.setState( {
+			canvas: {
+				width: window.innerWidth,
+				height: window.innerHeight,
+			},
+		} );
+	}
+
+	componentDidMount() {
+		window.addEventListener( 'resize', this.updateCanvas );
+		this.updateCanvas();
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener( 'resize', this.updateCanvas );
 	}
 
 	start() {
@@ -207,18 +228,34 @@ export default class Game extends Component {
 		} );
 	}
 
-	render( { squares, playerSides, boardConfig, playerConfig }, { ready, currentPlayer, currentRoll, tokens } ) {
+	render( { squares, playerSides, boardConfig, playerConfig }, { canvas, ready, currentPlayer, currentRoll, tokens } ) {
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
 		} );
+
+		const { width, height } = canvas;
+		const { rows, cols } = boardConfig;
+		const rem = Math.min( height / 100, 10 );
+		const ratio = rows / cols;
+
+		const boardHeight = Math.min( rows * 100, Math.round( height - ( 2 * 10 * rem ) ) );
+		const boardWidth = Math.round( boardHeight / ratio );
+		const squareSize = Math.floor( boardWidth / cols );
+		const barWidth = Math.floor( rem * 10 );
+
+		const boardLayout = {
+			width: boardWidth,
+			height: boardHeight,
+			top: Math.floor( ( height - boardHeight ) / 2 ),
+			left: Math.floor( ( width - boardWidth ) / 2 ),
+		};
 
 		return (
 			<>
 				<div className={ classes }>
 					<Board { ...boardConfig }
+						layout={ boardLayout }
 						squares={ squares }
-						tokens={ tokens.filter( token => token.status === 'active' ) }
-						onPlay={ this.handlePlay }
 						/>
 					{ playerSides.map( ( side, index ) => {
 						var isCurrent = currentPlayer === index;
@@ -228,9 +265,56 @@ export default class Game extends Component {
 								side={ side }
 								ready={ isCurrent }
 								roll={ isCurrent && currentRoll }
-								tokens={ tokens.filter( token => token.side === side && token.status !== 'active' ) }
 								onRoll={ this.handleRoll }
-								onPlay={ this.handlePlay }
+								/>
+						);
+					} ) }
+					{ tokens.map( token => {
+						const layout = {
+							top: 0,
+							left: 0,
+							width: 0,
+							height: 0,
+						};
+
+						// Set the top based on if on board or not
+						switch ( token.status ) {
+							case 'active':
+								// Position relative to square
+								layout.top = ( token.top * squareSize ) + boardLayout.top;
+								break;
+
+							case 'inactive':
+								// At top of player bar (after roll button)
+								layout.top = barWidth;
+								break;
+
+							case 'complete':
+								// At bottom of player bar
+								layout.top = height - barWidth;
+								break;
+						}
+
+						// Set left based on if on board or not
+						if ( token.status === 'active' ) {
+							// Position relative to square
+							layout.left = ( token.left * squareSize ) + boardLayout.left;
+						} else {
+							// Position on left/right side
+							layout.left = token.side == 'left' ? 0 : width - barWidth;
+						}
+
+						// Set width/height to either square or bar
+						if ( token.status === 'active' ) {
+							layout.width = layout.height = squareSize;
+						} else {
+							layout.width = layout.height = barWidth;
+						}
+
+						return (
+							<Token { ...token }
+								layout={ layout }
+								onClick={ () => this.handlePlay( token ) }
 								/>
 						);
 					} ) }

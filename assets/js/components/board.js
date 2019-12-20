@@ -1,35 +1,27 @@
 import { h } from 'preact';
 
 import Square from './square.js';
-import Token from './token.js';
 
-export default function Board( { width, height, squares, tokens, onPlay } ) {
-	function getProps( config ) {
-		return {
-			...config,
-			top: ( config.top / height ) * 100 + '%',
-			left: ( config.left / width ) * 100 + '%',
-		};
-	}
-
-	const theSquares = squares.map( config => {
-		return ( <Square { ...getProps( config ) } /> );
-	} );
-
-	const theTokens = tokens.map( config => {
-		// skip tokens that don't have a position
-		if ( typeof config.top === 'undefined' ) {
-			return null;
-		}
-
-		return ( <Token { ...getProps( config ) } onClick={ () => onPlay( config ) } /> );
-	} );
+export default function Board( { cols, rows, layout, squares } ) {
+	const style = {
+		width: layout.width + 'px',
+		height: layout.height + 'px',
+		top: layout.top + 'px',
+		left: layout.left + 'px',
+	};
 
 	return (
-		<div className="ur-board">
-			<svg version="1" width={ width * 100 } height={ height * 100 } xmlns="http://www.w3.org/2000/svg"></svg>
-			{ theSquares }
-			{ theTokens }
+		<div className="ur-board" style={ style }>
+			{ squares.map( square => {
+				const layout = {
+					top: ( square.top / rows ) * 100 + '%',
+					left: ( square.left / cols ) * 100 + '%',
+					width: ( 1 / cols ) * 100 + '%',
+					height: ( 1 / rows ) * 100 + '%',
+				};
+
+				return ( <Square { ...square } layout={ layout } /> );
+			} ) }
 		</div>
 	);
 }

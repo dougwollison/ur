@@ -47,8 +47,8 @@ const gameConfig = {
 	rollCount: 4,
 	tokenCount: 7,
 	boardConfig: {
-		width: 3,
-		height: 8,
+		cols: 3,
+		rows: 8,
 	},
 	playerSides: [ 'left', 'right' ],
 };

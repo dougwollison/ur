@@ -1,18 +1,17 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 
-export default function Square( props ) {
-	const classes = classnames( 'ur-square', props.side, {
-		'is-double': props.isDouble,
-		'is-safe': props.isSafe,
-	} );
-
-	const position = {
-		top: props.top,
-		left: props.left,
-	};
+export default function Square( { side, isDouble, isSafe, layout } ) {
+	const classes = classnames(
+		'ur-square',
+		side,
+		{
+			'is-double': isDouble,
+			'is-safe': isSafe,
+		}
+	);
 
 	return (
-		<div className={ classes } style={ position }></div>
+		<div className={ classes } style={ layout }></div>
 	);
 }
