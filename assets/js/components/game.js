@@ -25,6 +25,7 @@ export default class Game extends Component {
 		this.state = {
 			canvas: { width: 0, height: 0 },
 			ready: false,
+			animating: false,
 			currentPlayer: null,
 			currentRoll: false,
 			tokens,
@@ -167,7 +168,67 @@ export default class Game extends Component {
 		} );
 	}
 
+	animateToken( token, moveBy ) {
+		const start = token.progress;
+		let moves = start >= 0 ? 1 : 0;
+
+		// Get the square the token lands on
+		const lastSquare = this.findSquare( start + moveBy, token.side );
+
+		const step = () => {
+			// If done moving, handle last square
+			if ( moves > moveBy ) {
+				this.setState( { animating: false } );
+
+				// Find the existing token, capture it if found
+				const capture = this.findToken( lastSquare );
+				if ( capture ) {
+					delete capture.top;
+					delete capture.left;
+					capture.status = 'inactive';
+					capture.progress = -1;
+				}
+
+				// If end square, mark token as complete
+				if ( lastSquare.isEnd ) {
+					token.status = 'complete';
+				}
+
+				// If double, restart turn, otherwise end
+				if ( lastSquare.isDouble ) {
+					this.nextPlayer( this.state.currentPlayer );
+				} else {
+					this.nextPlayer();
+				}
+				return;
+			}
+
+			// Find the square at the new position
+			const square = this.findSquare( start + moves, token.side );
+
+			// Update the token
+			token.top = square.top;
+			token.left = square.left;
+			token.status = 'active';
+			token.progress = square.index;
+
+			this.setState( {
+				tokens: [ ...this.state.tokens ],
+			} );
+
+			moves++;
+			setTimeout( step, 500 );
+		};
+
+		step();
+	}
+
 	handlePlay( token ) {
+		// Currently animating, ignore
+		if ( this.state.animating ) {
+			return;
+		}
+
 		// If not the current player's token, ignore
 		if ( token.side !== this.props.playerSides[ this.state.currentPlayer ] ) {
 			return;
@@ -181,41 +242,7 @@ export default class Game extends Component {
 			return;
 		}
 
-		const progress = token.progress + moveBy;
-
-		// Find the applicable square and place it there
-		const square = this.findSquare( progress, token.side );
-
-		// Find the existing token, capture it if found
-		const capture = this.findToken( square );
-		if ( capture ) {
-			delete capture.top;
-			delete capture.left;
-			capture.status = 'inactive';
-			capture.progress = -1;
-		}
-
-		// Update token position/status
-		token.top = square.top;
-		token.left = square.left;
-		token.status = 'active';
-		token.progress += moveBy;
-
-		// If end square, mark token as complete
-		if ( square.isEnd ) {
-			token.status = 'complete';
-		}
-
-		// If double, restart turn, otherwise end
-		if ( square.isDouble ) {
-			this.nextPlayer( this.state.currentPlayer );
-		} else {
-			this.nextPlayer();
-		}
-
-		this.setState( {
-			tokens: [ ...this.state.tokens ],
-		} );
+		this.animateToken( token, moveBy );
 	}
 
 	render( { squares, playerSides, boardConfig, playerConfig }, { canvas, ready, currentPlayer, currentRoll, tokens } ) {
