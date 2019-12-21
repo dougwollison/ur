@@ -81,6 +81,13 @@ body {
 		font-size: 10rem;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
+		&.left {
+			background: linear-gradient(to bottom right, lighten(blue, 20), lighten(blue, 30));
+		}
+		&.right {
+			background: linear-gradient(to bottom right, lighten(red, 20), lighten(red, 30));
+		}
+
 		&.is-start,
 		&.is-end {
 			display: none;
