@@ -185,6 +185,8 @@ export default class Game extends Component {
 
 				// If end square, mark token as complete
 				if ( lastSquare.isEnd ) {
+					delete token.top;
+					delete token.left;
 					token.status = 'complete';
 				}
 
