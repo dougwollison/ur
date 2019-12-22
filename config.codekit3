@@ -33,53 +33,16 @@
 		"oAP": "/.gitignore",
 		"oF": 0
 		},
-	"/assets/css/game.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "/assets/css/game-min.css",
-		"oF": 0,
-		"oS": 3
-		},
-	"/assets/css/game.css.map": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/assets/css/game.css.map",
-		"oF": 0
-		},
 	"/assets/js/app.js": {
 		"bF": 4,
 		"ft": 64,
 		"ma": 1,
 		"mi": 1,
 		"oA": 0,
-		"oAP": "/assets/js/app.min.js",
-		"oF": 0,
+		"oAP": "/bundle.js",
+		"oF": 2,
 		"sC": 3,
 		"tS": 1
-		},
-	"/assets/js/app.min.js": {
-		"bF": 4,
-		"ft": 64,
-		"ma": 1,
-		"mi": 1,
-		"oA": 0,
-		"oAP": "/assets/js/app.min.min.js",
-		"oF": 0,
-		"sC": 3,
-		"tS": 1
-		},
-	"/assets/js/app.min.js.map": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/assets/js/app.min.js.map",
-		"oF": 0
 		},
 	"/assets/js/components/board.js": {
 		"bF": 4,
@@ -144,8 +107,8 @@
 		"ft": 4,
 		"ma": 1,
 		"oA": 0,
-		"oAP": "/assets/css/game.css",
-		"oF": 0,
+		"oAP": "/style.css",
+		"oF": 2,
 		"oS": 3,
 		"uL": 1
 		},
@@ -161,6 +124,25 @@
 		"oF": 0,
 		"oS": 3,
 		"uL": 1
+		},
+	"/bundle.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 1,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/bundle.min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 1
+		},
+	"/bundle.js.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/bundle.js.map",
+		"oF": 0
 		},
 	"/index.html": {
 		"cB": 0,
@@ -240,6 +222,24 @@
 		"pME": 1,
 		"rFN": 0,
 		"uCM": 0
+		},
+	"/style.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "/style-min.css",
+		"oF": 0,
+		"oS": 3
+		},
+	"/style.css.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/style.css.map",
+		"oF": 0
 		}
 	},
 "hooks": [
