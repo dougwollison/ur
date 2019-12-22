@@ -79,7 +79,7 @@ export default class Game extends Component {
 			}
 		}
 
-		tokens.forEach( token => token.isInvalid = false );
+		tokens.forEach( token => ( token.isInvalid = false ) );
 
 		this.setState( {
 			currentPlayer: current,
@@ -95,7 +95,7 @@ export default class Game extends Component {
 			result = result.filter( square => square.side === side );
 		}
 
-		return result[0];
+		return result[ 0 ];
 	}
 
 	findToken( square ) {
@@ -161,7 +161,7 @@ export default class Game extends Component {
 		const validMoves = playerTokens.filter( token => this.validateMove( token, result ) !== 0 );
 
 		// Mark tokens that aren't valid moves as invalid
-		playerTokens.forEach( token => token.isInvalid = validMoves.indexOf( token ) < 0 );
+		playerTokens.forEach( token => ( token.isInvalid = validMoves.indexOf( token ) < 0 ) );
 
 		// If no valid moves, end turn after delay
 		if ( validMoves.length === 0 ) {
@@ -268,9 +268,7 @@ export default class Game extends Component {
 		const classes = classnames(
 			'ur-game',
 			`side-${currentPlayer + 1}`,
-			{
-				'is-ready': ready,
-			}
+			{ 'is-ready': ready }
 		);
 
 		const { width, height } = canvas;
@@ -322,11 +320,6 @@ export default class Game extends Component {
 
 						// Set the top based on if on board or not
 						switch ( token.status ) {
-							case 'active':
-								// Position relative to square
-								layout.top = ( token.top * squareSize ) + boardLayout.top;
-								break;
-
 							case 'inactive':
 								// At top of player bar (after roll button)
 								layout.top = barWidth + ( barWidth * 0.25 * inactiveCounts[ token.side ] );
@@ -337,6 +330,11 @@ export default class Game extends Component {
 								// At bottom of player bar
 								layout.top = height - barWidth - ( barWidth * 0.25 * completeCounts[ token.side ] );
 								completeCounts[ token.side ]++; // increment token counter
+								break;
+
+							default:
+								// Position relative to square
+								layout.top = ( token.top * squareSize ) + boardLayout.top;
 								break;
 						}
 
