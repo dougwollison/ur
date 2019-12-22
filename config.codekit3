@@ -9,21 +9,21 @@
 	],
 "creatorBuild": "31934",
 "files": {
-	"/.babelrc": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/.babelrc",
-		"oF": 0
+	"/.babelrc.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/.babelrc-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
 		},
-	"/.eslintrc": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/.eslintrc",
-		"oF": 0
+	"/.eslintrc.json": {
+		"ft": 524288,
+		"oA": 1,
+		"oAP": "/.eslintrc-min.json",
+		"oF": 0,
+		"oO": 0,
+		"oS": 1
 		},
 	"/.gitignore": {
 		"cB": 0,
@@ -143,6 +143,17 @@
 		"oA": 0,
 		"oAP": "/bundle.js.map",
 		"oF": 0
+		},
+	"/gulpfile.js": {
+		"bF": 4,
+		"ft": 64,
+		"ma": 0,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "/gulpfile.min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
 		},
 	"/index.html": {
 		"cB": 0,
@@ -687,7 +698,7 @@
 			}
 		},
 	"environmentVariablesString": "NODE_ENV:::production",
-	"esLintConfigFileHandlingType": 1,
+	"esLintConfigFileHandlingType": 2,
 	"esLintECMAVersion": 9,
 	"esLintEnvironmentsMask": 1,
 	"esLintRules": {
@@ -2453,7 +2464,7 @@
 			"flagValue": -1
 			},
 		"ie8": {
-			"active": 1,
+			"active": 0,
 			"flagValue": -1
 			},
 		"if_return": {
@@ -2509,7 +2520,7 @@
 			"flagValue": 32000
 			},
 		"module": {
-			"active": 0,
+			"active": 1,
 			"flagValue": -1
 			},
 		"negate_iife": {
