@@ -99,7 +99,20 @@
 		"sC": 3,
 		"tS": 1
 		},
-	"/assets/sass/game.scss": {
+	"/assets/scss/parts/_reset.scss": {
+		"aP": 1,
+		"bl": 0,
+		"dP": 10,
+		"dS": 0,
+		"ft": 4,
+		"ma": 1,
+		"oA": 1,
+		"oAP": "/assets/scss/parts/_reset.css",
+		"oF": 0,
+		"oS": 3,
+		"uL": 1
+		},
+	"/assets/scss/style.scss": {
 		"aP": 1,
 		"bl": 0,
 		"dP": 10,
@@ -109,19 +122,6 @@
 		"oA": 0,
 		"oAP": "/style.css",
 		"oF": 2,
-		"oS": 3,
-		"uL": 1
-		},
-	"/assets/sass/parts/_reset.scss": {
-		"aP": 1,
-		"bl": 0,
-		"dP": 10,
-		"dS": 0,
-		"ft": 4,
-		"ma": 1,
-		"oA": 1,
-		"oAP": "/assets/css/parts/_reset.css",
-		"oF": 0,
 		"oS": 3,
 		"uL": 1
 		},
