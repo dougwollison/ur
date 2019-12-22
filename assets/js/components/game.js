@@ -31,7 +31,7 @@ export default class Game extends Component {
 			canvas: { width: 0, height: 0 },
 			ready: false,
 			animating: false,
-			currentPlayer: null,
+			currentPlayer: -1,
 			currentRoll: false,
 			players,
 			tokens,
@@ -265,9 +265,13 @@ export default class Game extends Component {
 	}
 
 	render( { squares, playerCount, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
-		const classes = classnames( 'ur-game', {
-			'is-ready': ready,
-		} );
+		const classes = classnames(
+			'ur-game',
+			`side-${currentPlayer + 1}`,
+			{
+				'is-ready': ready,
+			}
+		);
 
 		const { width, height } = canvas;
 		const { rows, cols } = boardConfig;
