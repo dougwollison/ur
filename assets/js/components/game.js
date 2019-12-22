@@ -194,6 +194,9 @@ export default class Game extends Component {
 					delete token.top;
 					delete token.left;
 					token.status = 'complete';
+
+					// Update player score
+					this.state.players[ this.state.currentPlayer ].score++;
 				}
 
 				// Perform capture if needed
@@ -206,6 +209,7 @@ export default class Game extends Component {
 
 				this.setState( {
 					tokens: [ ...this.state.tokens ],
+					players: [ ...this.state.players ],
 				} );
 
 				// If double, restart turn, otherwise end
