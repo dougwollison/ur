@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 
-export default function Token( { side, status, isInvalid, layout, onClick } ) {
+export default function Token( { side, status, isInvalid, isPlayable, layout, onClick } ) {
 	const classes = classnames(
 		'ur-token',
 		`side-${side + 1}`,
@@ -10,6 +10,6 @@ export default function Token( { side, status, isInvalid, layout, onClick } ) {
 	);
 
 	return (
-		<button className={ classes } style={ layout } onClick={ onClick }></button>
+		<button className={ classes } style={ layout } disabled={ ! isPlayable } onClick={ onClick }></button>
 	);
 }

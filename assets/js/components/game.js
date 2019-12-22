@@ -356,6 +356,7 @@ export default class Game extends Component {
 							<Token { ...token }
 								key={ index }
 								layout={ layout }
+								isPlayable={ currentPlayer === token.side }
 								onClick={ () => this.handlePlay( token ) }
 								/>
 						);
