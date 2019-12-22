@@ -264,7 +264,7 @@ export default class Game extends Component {
 		this.animateToken( token, moveBy );
 	}
 
-	render( { squares, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
+	render( { squares, playerCount, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
 		} );
@@ -285,6 +285,9 @@ export default class Game extends Component {
 			top: Math.floor( ( height - boardHeight ) / 2 ),
 			left: Math.floor( ( width - boardWidth ) / 2 ),
 		};
+
+		const inactiveCounts = new Array( playerCount ).fill( 0 );
+		const completeCounts = new Array( playerCount ).fill( 0 );
 
 		return (
 			<>
@@ -322,12 +325,14 @@ export default class Game extends Component {
 
 							case 'inactive':
 								// At top of player bar (after roll button)
-								layout.top = barWidth;
+								layout.top = barWidth + ( barWidth * 0.25 * inactiveCounts[ token.side ] );
+								inactiveCounts[ token.side ]++; // increment token counter
 								break;
 
 							case 'complete':
 								// At bottom of player bar
-								layout.top = height - barWidth;
+								layout.top = height - barWidth - ( barWidth * 0.25 * completeCounts[ token.side ] );
+								completeCounts[ token.side ]++; // increment token counter
 								break;
 						}
 
