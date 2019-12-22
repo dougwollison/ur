@@ -2,9 +2,11 @@ import { h } from 'preact';
 import classnames from 'classnames';
 
 export default function Player( { ready, roll, side, onRoll } ) {
-	const classes = classnames( 'ur-player', side, {
-		'is-ready': ready,
-	} );
+	const classes = classnames(
+		'ur-player',
+		`side-${side + 1}`,
+		{ 'is-ready': ready }
+	);
 
 	return (
 		<div className={ classes }>

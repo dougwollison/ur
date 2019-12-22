@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout } ) {
 	const classes = classnames(
 		'ur-square',
-		side,
+		`side-${side + 1}`,
 		{
 			'is-start': isStart,
 			'is-end': isEnd,

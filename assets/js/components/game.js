@@ -9,18 +9,23 @@ export default class Game extends Component {
 	constructor( props ) {
 		super( props );
 
+		const players = [];
 		const tokens = [];
-		this.props.playerSides.forEach( side => {
-			for ( let i = 0; i < this.props.tokenCount; i++ ) {
+		for ( var i = 0; i < props.playerCount; i++ ) {
+			players.push( {
+				side: i,
+				score: 0,
+			} );
+
+			for ( let j = 0; j < this.props.tokenCount; j++ ) {
 				tokens.push( {
-					side,
-					key: side + i,
+					side: i,
 					progress: -1,
 					status: 'inactive',
 					inInvalid: false,
 				} );
 			}
-		} );
+		}
 
 		this.state = {
 			canvas: { width: 0, height: 0 },
@@ -28,6 +33,7 @@ export default class Game extends Component {
 			animating: false,
 			currentPlayer: null,
 			currentRoll: false,
+			players,
 			tokens,
 		};
 
@@ -68,7 +74,7 @@ export default class Game extends Component {
 
 		if ( typeof current === 'undefined' ) {
 			current = this.state.currentPlayer + 1;
-			if ( current >= this.props.playerSides.length ) {
+			if ( current >= this.props.playerCount ) {
 				current = 0;
 			}
 		}
@@ -148,7 +154,7 @@ export default class Game extends Component {
 		}
 
 		// Get the current player and their tokens
-		const player = this.props.playerSides[ this.state.currentPlayer ];
+		const player = this.state.currentPlayer;
 		const playerTokens = this.state.tokens.filter( token => token.side === player );
 
 		// Get the list of valid moves
@@ -239,7 +245,7 @@ export default class Game extends Component {
 		}
 
 		// If not the current player's token, ignore
-		if ( token.side !== this.props.playerSides[ this.state.currentPlayer ] ) {
+		if ( token.side !== this.state.currentPlayer ) {
 			return;
 		}
 
@@ -254,7 +260,7 @@ export default class Game extends Component {
 		this.animateToken( token, moveBy );
 	}
 
-	render( { squares, playerSides, boardConfig, playerConfig }, { canvas, ready, currentPlayer, currentRoll, tokens } ) {
+	render( { squares, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
 		const classes = classnames( 'ur-game', {
 			'is-ready': ready,
 		} );
@@ -283,19 +289,19 @@ export default class Game extends Component {
 						layout={ boardLayout }
 						squares={ squares }
 						/>
-					{ playerSides.map( ( side, index ) => {
-						var isCurrent = currentPlayer === index;
+					{ players.map( ( player, index ) => {
+						var isCurrent = currentPlayer === player.side;
 
 						return (
-							<Player { ...playerConfig }
-								side={ side }
+							<Player { ...player }
+								key={ index }
 								ready={ isCurrent }
 								roll={ isCurrent && currentRoll }
 								onRoll={ this.handleRoll }
 								/>
 						);
 					} ) }
-					{ tokens.map( token => {
+					{ tokens.map( ( token, index ) => {
 						const layout = {
 							top: 0,
 							left: 0,
@@ -327,7 +333,7 @@ export default class Game extends Component {
 							layout.left = ( token.left * squareSize ) + boardLayout.left;
 						} else {
 							// Position on left/right side
-							layout.left = token.side == 'left' ? 0 : width - barWidth;
+							layout.left = token.side === 0 ? 0 : width - barWidth;
 						}
 
 						// Set width/height to either square or bar
@@ -339,6 +345,7 @@ export default class Game extends Component {
 
 						return (
 							<Token { ...token }
+								key={ index }
 								layout={ layout }
 								onClick={ () => this.handlePlay( token ) }
 								/>

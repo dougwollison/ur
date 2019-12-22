@@ -81,10 +81,10 @@ body {
 		font-size: 10rem;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
-		&.left {
+		&.side-1 {
 			background: linear-gradient(to bottom right, lighten(blue, 20), lighten(blue, 30));
 		}
-		&.right {
+		&.side-2 {
 			background: linear-gradient(to bottom right, lighten(red, 20), lighten(red, 30));
 		}
 
@@ -124,21 +124,13 @@ body {
 		pointer-events: all;
 	}
 
-	&.left {
+	&.side-1 {
 		left: 0;
 		background: lighten(blue, 30);
-
-		button {
-			background: darken(blue, 10);
-		}
 	}
-	&.right {
+	&.side-2 {
 		right: 0;
 		background: lighten(red, 30);
-
-		button {
-			background: darken(red, 10);
-		}
 	}
 }
 	.roll {
@@ -159,6 +151,14 @@ body {
 				text-transform: uppercase;
 			}
 		}
+
+		.side-1 & {
+			background: darken(blue, 10);
+		}
+
+		.side-2 & {
+			background: darken(red, 10);
+		}
 	}
 
 .ur-token {
@@ -173,10 +173,10 @@ body {
 	transition: all .5s ease-out;
 	transform: scale(0.8);
 
-	&.left {
+	&.side-1 {
 		background: blue;
 	}
-	&.right {
+	&.side-2 {
 		background: red;
 	}
 
@@ -184,10 +184,10 @@ body {
 		border-color: rgba(#fff, .5);
 		pointer-events: none;
 
-		&.left {
+		&.side-1 {
 			background: mix(blue, white);
 		}
-		&.right {
+		&.side-2 {
 			background: mix(red, white);
 		}
 	}

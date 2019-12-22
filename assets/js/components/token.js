@@ -4,7 +4,7 @@ import classnames from 'classnames';
 export default function Token( { side, status, isInvalid, layout, onClick } ) {
 	const classes = classnames(
 		'ur-token',
-		side,
+		`side-${side + 1}`,
 		`is-${status}`,
 		{ 'is-invalid': isInvalid }
 	);
