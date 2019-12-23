@@ -24,21 +24,24 @@ body {
 	font-family: 'Helvetica Neue', sans-serif;
 }
 
-#wtf {
-	position: absolute;
-	z-index: 10;
-	top: 5rem;
-	left: 50%;
-	width: 8em;
-	margin: -1em 0 0 -4em;
-	padding: 10px;
-	border-radius: 20px;
-	font-size: 20px;
-	line-height: 1em;
-	text-align: center;
-	text-decoration: none;
-	background: black;
-	color: white;
+h1 {
+	font-size: 2em;
+	font-weight: 600;
+	margin: 0 0 .5em;
+}
+
+ul {
+	list-style: disc;
+	line-height: 1.4em;
+	margin: 0 0 1.4em;
+	padding: 0 0 0 1em;
+}
+	li {
+		margin: 0 0 .7em;
+	}
+
+a {
+	text-decoration: underline;
 }
 
 .start {
@@ -240,4 +243,66 @@ body {
 			color: gold;
 		}
 	}
+}
+
+.modal-toggle {
+	position: absolute;
+	z-index: 10;
+	top: 5rem;
+	left: 50%;
+	width: 8em;
+	margin: -1em 0 0 -4em;
+	padding: 10px;
+	border-radius: 20px;
+	font-size: 20px;
+	line-height: 1em;
+	text-align: center;
+	text-decoration: none;
+	background: black;
+	color: white;
+}
+
+.modal {
+	position: fixed;
+	z-index: 10;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5rem;
+	transform: translateY(100%);
+	visibility: hidden;
+	transition: transform .5s ease-out, visibility .5s ease-out;
+
+	&.is-open {
+		transform: translateY(0);
+		visibility: visible;
+	}
+
+	&-inner {
+		position: relative;
+		background: white;
+		padding: 4rem;
+		border-radius: 1rem;
+		font-size: 2rem;
+		box-shadow: 0 0 4px rgba(#000, .1);
+	}
+		&-close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 2rem;
+			font: 0/0 a;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+
+			&:after {
+				content: '\d7';
+				font: 40px/1em sans-serif;
+			}
+		}
 }

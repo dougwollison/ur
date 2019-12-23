@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import Board from './board.js';
 import Player from './player.js';
 import Token from './token.js';
+import Modal from './modal.js';
+import Rules from './rules.js';
 
 export default class Game extends Component {
 	constructor( props ) {
@@ -367,6 +369,9 @@ export default class Game extends Component {
 				{ this.state.ready || (
 					<button className="start" onClick={ this.start }>Start</button>
 				) }
+				<Modal name="How to Play">
+					<Rules />
+				</Modal>
 			</>
 		);
 	}
