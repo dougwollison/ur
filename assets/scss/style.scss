@@ -197,11 +197,11 @@ a {
 			}
 		}
 
-		.side-1 & {
+		.ur-player.side-1 & {
 			background: darken(blue, 10);
 		}
 
-		.side-2 & {
+		.ur-player.side-2 & {
 			background: darken(red, 10);
 		}
 	}
