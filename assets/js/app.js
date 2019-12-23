@@ -16,7 +16,7 @@ const GAME_SQUARES = [
 	========== */
 
 	// Left Squares
-	{ index: -1, side: 0, left: 0, top: 4, arrow: 'u v', isStart: true },
+	{ index: -1, side: 0, left: 0, top: 4, arrow: '', isStart: true },
 	{ index: 0, side: 0, left: 0, top: 3, arrow: 'u v' },
 	{ index: 1, side: 0, left: 0, top: 2, arrow: 'u v' },
 	{ index: 2, side: 0, left: 0, top: 1, arrow: 'u v' },
@@ -26,7 +26,7 @@ const GAME_SQUARES = [
 	{ index: 14, side: 0, left: 0, top: 5, arrow: '', isEnd: true },
 
 	// Right Squares
-	{ index: -1, side: 1, left: 2, top: 4, arrow: 'u v', isStart: true },
+	{ index: -1, side: 1, left: 2, top: 4, arrow: '', isStart: true },
 	{ index: 0, side: 1, left: 2, top: 3, arrow: 'u v' },
 	{ index: 1, side: 1, left: 2, top: 2, arrow: 'u v' },
 	{ index: 2, side: 1, left: 2, top: 1, arrow: 'u v' },
