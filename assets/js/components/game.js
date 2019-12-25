@@ -1,4 +1,4 @@
-import { h, Component, Fragment } from 'preact';
+import { h, Component, createRef, Fragment } from 'preact';
 import classnames from 'classnames';
 
 import Board from './board.js';
@@ -9,6 +9,8 @@ import Modal from './modal.js';
 export default class Game extends Component {
 	constructor( props ) {
 		super( props );
+
+		this.ref = createRef();
 
 		const players = [];
 		const tokens = [];
@@ -40,6 +42,7 @@ export default class Game extends Component {
 
 		// Bind methods
 		this.updateCanvas = this.updateCanvas.bind( this );
+		this.fullscreen = this.fullscreen.bind( this );
 		this.start = this.start.bind( this );
 		this.handleRoll = this.handleRoll.bind( this );
 		this.handlePlay = this.handlePlay.bind( this );
@@ -61,6 +64,32 @@ export default class Game extends Component {
 
 	componentWillUnmount() {
 		window.removeEventListener( 'resize', this.updateCanvas );
+	}
+
+	fullscreen() {
+		if ( document.fullscreen ) {
+			if ( document.exitFullscreen ) {
+				document.exitFullscreen();
+			} else if ( document.mozCancelFullScreen ) { // Firefox
+				document.mozCancelFullScreen();
+			} else if ( document.webkitExitFullscreen ) { // Chrome, Safari and Opera
+				document.webkitExitFullscreen();
+			} else if ( document.msExitFullscreen ) { // IE/Edge
+				document.msExitFullscreen();
+			}
+		} else {
+			const elm = this.ref.current;
+
+			if ( elm.requestFullscreen ) {
+				elm.requestFullscreen();
+			} else if ( elm.mozRequestFullScreen ) { // Firefox
+				elm.mozRequestFullScreen();
+			} else if ( elm.webkitRequestFullscreen ) { // Chrome, Safari and Opera
+				elm.webkitRequestFullscreen();
+			} else if ( elm.msRequestFullscreen ) { // IE/Edge
+				elm.msRequestFullscreen();
+			}
+		}
 	}
 
 	start() {
@@ -294,7 +323,7 @@ export default class Game extends Component {
 
 		return (
 			<>
-				<div className={ classes }>
+				<div className={ classes } ref={ this.ref }>
 					<Board { ...boardConfig }
 						layout={ boardLayout }
 						squares={ squares }
@@ -364,6 +393,7 @@ export default class Game extends Component {
 								/>
 						);
 					} ) }
+					<button className="fullscreen" onClick={ this.fullscreen }>Fullscreen</button>
 				</div>
 				{ this.state.ready || (
 					<button className="start" onClick={ this.start }>Start</button>
