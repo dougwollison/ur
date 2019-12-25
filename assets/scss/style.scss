@@ -89,7 +89,7 @@ a {
 		justify-content: center;
 		align-items: center;
 		color: #fff;
-		font-size: 10rem;
+		font-size: 8rem;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
 		svg {
@@ -147,10 +147,7 @@ a {
 		}
 
 		&.is-safe {
-			&:before {
-				content: '\2726';
-				color: gold;
-			}
+			background: linear-gradient(to bottom right, darken(gold, 10), lighten(gold, 10));
 		}
 		&.is-double {
 			&:before {
@@ -234,15 +231,8 @@ a {
 	}
 
 	&.is-invalid {
-		border-color: rgba(#fff, .5);
+		background: grey;
 		pointer-events: none;
-
-		&.side-1 {
-			background: mix(blue, white);
-		}
-		&.side-2 {
-			background: mix(red, white);
-		}
 	}
 
 	&.is-complete {
