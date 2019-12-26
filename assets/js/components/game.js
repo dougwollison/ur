@@ -190,6 +190,9 @@ export default class Game extends Component {
 		const start = token.progress;
 		let moves = start >= 0 ? 1 : 0;
 
+		// Mark the token as animating
+		token.isAnimating = true;
+
 		// Get the square the token lands on
 		const lastSquare = this.findSquare( start + moveBy, token.side );
 
@@ -199,6 +202,7 @@ export default class Game extends Component {
 		const step = () => {
 			// If done moving, handle last square
 			if ( moves > moveBy ) {
+				token.isAnimating = false;
 				this.setState( { animating: false } );
 
 				// If end square, mark token as complete
@@ -230,6 +234,7 @@ export default class Game extends Component {
 				} else {
 					this.nextPlayer();
 				}
+
 				return;
 			}
 
