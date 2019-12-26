@@ -3,33 +3,25 @@ import { createPortal } from 'preact/compat';
 import classnames from 'classnames';
 
 export default class Modal extends Component {
-	constructor( props ) {
-		super( props );
+	ref = createRef();
 
-		this.ref = createRef();
+	state = {
+		isOpen: false,
+	};
 
-		this.state = {
-			isOpen: false,
-		};
+	open = () => {
+		this.setState( { isOpen: true } );
+	};
 
-		// Bind methods
-		this.open = this.open.bind( this );
-		this.close = this.close.bind( this );
-	}
+	close = () => {
+		this.setState( { isOpen: false } );
+	};
 
 	componentDidMount() {
 		if ( this.props.content ) {
 			const source = document.getElementById( this.props.content );
 			this.ref.current.appendChild( source.content.cloneNode( true ) );
 		}
-	}
-
-	open() {
-		this.setState( { isOpen: true } );
-	}
-
-	close() {
-		this.setState( { isOpen: false } );
 	}
 
 	render( { name, children }, { isOpen } ) {

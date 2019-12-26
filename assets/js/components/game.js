@@ -7,21 +7,29 @@ import Token from './token.js';
 import Modal from './modal.js';
 
 export default class Game extends Component {
+	ref = createRef();
+
+	state = {
+		canvas: { width: 0, height: 0 },
+		ready: false,
+		animating: false,
+		currentPlayer: -1,
+		currentRoll: false,
+		players: [],
+		tokens: [],
+	};
+
 	constructor( props ) {
 		super( props );
 
-		this.ref = createRef();
-
-		const players = [];
-		const tokens = [];
 		for ( var i = 0; i < props.playerCount; i++ ) {
-			players.push( {
+			this.state.players.push( {
 				side: i,
 				score: 0,
 			} );
 
 			for ( let j = 0; j < this.props.tokenCount; j++ ) {
-				tokens.push( {
+				this.state.tokens.push( {
 					side: i,
 					progress: -1,
 					status: 'inactive',
@@ -29,44 +37,18 @@ export default class Game extends Component {
 				} );
 			}
 		}
-
-		this.state = {
-			canvas: { width: 0, height: 0 },
-			ready: false,
-			animating: false,
-			currentPlayer: -1,
-			currentRoll: false,
-			players,
-			tokens,
-		};
-
-		// Bind methods
-		this.updateCanvas = this.updateCanvas.bind( this );
-		this.fullscreen = this.fullscreen.bind( this );
-		this.start = this.start.bind( this );
-		this.handleRoll = this.handleRoll.bind( this );
-		this.handlePlay = this.handlePlay.bind( this );
 	}
 
-	updateCanvas() {
+	updateCanvas = () => {
 		this.setState( {
 			canvas: {
 				width: window.innerWidth,
 				height: window.innerHeight,
 			},
 		} );
-	}
+	};
 
-	componentDidMount() {
-		window.addEventListener( 'resize', this.updateCanvas );
-		this.updateCanvas();
-	}
-
-	componentWillUnmount() {
-		window.removeEventListener( 'resize', this.updateCanvas );
-	}
-
-	fullscreen() {
+	fullscreen = () => {
 		if ( document.fullscreen ) {
 			if ( document.exitFullscreen ) {
 				document.exitFullscreen();
@@ -90,14 +72,14 @@ export default class Game extends Component {
 				elm.msRequestFullscreen();
 			}
 		}
-	}
+	};
 
-	start() {
+	start = () => {
 		this.setState( {
 			ready: true,
 			currentPlayer: 0,
 		} );
-	}
+	};
 
 	nextPlayer( current ) {
 		const tokens = [ ...this.state.tokens ];
@@ -165,7 +147,7 @@ export default class Game extends Component {
 		return moveBy;
 	}
 
-	handleRoll() {
+	handleRoll = () => {
 		var result = 0;
 
 		// Sum a number of simulated coin flips
@@ -202,7 +184,7 @@ export default class Game extends Component {
 		this.setState( {
 			tokens: [ ...this.state.tokens ],
 		} );
-	}
+	};
 
 	animateToken( token, moveBy ) {
 		const start = token.progress;
@@ -272,7 +254,7 @@ export default class Game extends Component {
 		step();
 	}
 
-	handlePlay( token ) {
+	handlePlay = ( token ) => {
 		// Currently animating, ignore
 		if ( this.state.animating ) {
 			return;
@@ -292,6 +274,15 @@ export default class Game extends Component {
 		}
 
 		this.animateToken( token, moveBy );
+	};
+
+	componentDidMount() {
+		window.addEventListener( 'resize', this.updateCanvas );
+		this.updateCanvas();
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener( 'resize', this.updateCanvas );
 	}
 
 	render( { squares, playerCount, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
