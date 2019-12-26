@@ -92,7 +92,7 @@ a {
 		font-size: 8rem;
 		background: linear-gradient(to bottom right, lighten(indigo, 40), lighten(indigo, 50));
 
-		svg {
+		.arrow {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -101,7 +101,9 @@ a {
 			opacity: 0;
 			transition: opacity .5s;
 
-			.is-ready & {
+			.is-ready &.side-all,
+			.is-ready.side-1 &.side-1,
+			.is-ready.side-2 &.side-2 {
 				opacity: .1;
 			}
 		}
