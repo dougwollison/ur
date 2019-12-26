@@ -14,7 +14,19 @@ const PATHS = {
 	br: 'M53.5,85h-7c0-18.5,0-27.7,5.4-33.1c5.3-5.4,14.6-5.4,33.1-5.4v7c-16,0-24.8,0-28.2,3.3C53.5,60.2,53.5,69,53.5,85z',
 };
 
-export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout, arrow } ) {
+function Arrow( { className, paths } ) {
+	if ( typeof paths === 'string' ) {
+		paths = paths.split( ' ' );
+	}
+
+	return (
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className={ `arrow ${className}` }>
+			{ paths.map( ( key, index ) => ( <path key={ index } className={ key } d={ PATHS[ key ] } /> ) ) }
+		</svg>
+	);
+}
+
+export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout, arrow, arrowSide1, arrowSide2 } ) {
 	const classes = classnames(
 		'ur-square',
 		`side-${side + 1}`,
@@ -26,13 +38,11 @@ export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout
 		}
 	);
 
-	const paths = arrow.split( ' ' );
-
 	return (
 		<div className={ classes } style={ layout }>
-			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-				{ paths.map( ( key, index ) => ( <path key={ index } className={ key } d={ PATHS[ key ] } /> ) ) }
-			</svg>
+			{ arrow && <Arrow paths={ arrow } className="side-all" /> }
+			{ arrowSide1 && <Arrow paths={ arrowSide1 } className="side-1" /> }
+			{ arrowSide2 && <Arrow paths={ arrowSide2 } className="side-2" /> }
 		</div>
 	);
 }
