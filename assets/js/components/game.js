@@ -148,10 +148,11 @@ export default class Game extends Component {
 	}
 
 	handleRoll = () => {
-		var result = 0;
+		const { minRoll, maxRoll } = this.props;
+		var result = minRoll;
 
 		// Sum a number of simulated coin flips
-		for ( let i = 0; i < this.props.rollCount; i++ ) {
+		for ( let i = 0; i < maxRoll - minRoll; i++ ) {
 			result += Math.floor( Math.random() * 2 ) ? 1 : 0;
 		}
 

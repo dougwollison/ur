@@ -49,7 +49,8 @@ const GAME_SQUARES = [
 const gameConfig = {
 	squares: GAME_SQUARES,
 	playerCount: 2,
-	rollCount: 4,
+	minRoll: 0,
+	maxRoll: 4,
 	tokenCount: 7,
 	boardConfig: {
 		cols: 3,
