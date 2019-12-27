@@ -295,7 +295,7 @@ export default class Game extends Component<Props, State> {
 		}
 
 		// Get the move, validate it
-		const moveBy = this.validateMove( token, this.state.currentRoll );
+		const moveBy = this.validateMove( token, this.state.currentRoll || 0 );
 
 		// If somehow not a valid move, abort
 		if ( ! moveBy ) {
