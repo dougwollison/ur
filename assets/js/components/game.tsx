@@ -62,7 +62,7 @@ export default class Game extends Component<GameProps, GameState> {
 		}
 	}
 
-	updateCanvas = () => {
+	updateCanvas = () : void => {
 		this.setState( {
 			canvas: {
 				width: window.innerWidth,
@@ -71,7 +71,7 @@ export default class Game extends Component<GameProps, GameState> {
 		} );
 	};
 
-	fullscreen = () => {
+	fullscreen = () : void => {
 		const doc = window.document as any;
 		if ( doc.fullscreen ) {
 			if ( doc.exitFullscreen ) {
@@ -98,14 +98,14 @@ export default class Game extends Component<GameProps, GameState> {
 		}
 	};
 
-	start = () => {
+	start = () : void => {
 		this.setState( {
 			ready: true,
 			currentPlayer: 0,
 		} );
 	};
 
-	nextPlayer( current?: number ) {
+	nextPlayer( current?: number ) : void {
 		const tokens = [ ...this.state.tokens ];
 
 		if ( typeof current === 'undefined' ) {
@@ -115,7 +115,9 @@ export default class Game extends Component<GameProps, GameState> {
 			}
 		}
 
-		tokens.forEach( token => ( token.isInvalid = false ) );
+		tokens.forEach( ( token ) : void => {
+			token.isInvalid = false;
+		} );
 
 		this.setState( {
 			currentPlayer: current,
@@ -124,7 +126,7 @@ export default class Game extends Component<GameProps, GameState> {
 		} );
 	}
 
-	findSquare( index, side ) {
+	findSquare( index: number, side: number ) : SquareProps {
 		var result = this.props.squares.filter( square => square.index === index );
 
 		if ( result.length > 1 ) {
@@ -134,13 +136,13 @@ export default class Game extends Component<GameProps, GameState> {
 		return result[ 0 ];
 	}
 
-	findToken( square ) {
-		return this.state.tokens.find( token => {
+	findToken( square: SquareProps ) : TokenProps | undefined {
+		return this.state.tokens.find( ( token ) : boolean => {
 			return token.top === square.top && token.left === square.left;
 		} );
 	}
 
-	validateMove( token, moveBy ) {
+	validateMove( token: TokenProps, moveBy: number ) : number {
 		const progress = token.progress + moveBy;
 
 		// Not in play; invalid
@@ -171,7 +173,7 @@ export default class Game extends Component<GameProps, GameState> {
 		return moveBy;
 	}
 
-	handleRoll = () => {
+	handleRoll = () : void => {
 		const { minRoll, maxRoll } = this.props;
 		var result = minRoll;
 
@@ -211,7 +213,7 @@ export default class Game extends Component<GameProps, GameState> {
 		} );
 	};
 
-	animateToken( token, moveBy ) {
+	animateToken( token: TokenProps, moveBy: number ) : void {
 		const start = token.progress;
 		let moves = start >= 0 ? 1 : 0;
 
@@ -284,7 +286,7 @@ export default class Game extends Component<GameProps, GameState> {
 		step();
 	}
 
-	handlePlay = ( token ) => {
+	handlePlay = ( token : TokenProps ) : void => {
 		// Currently animating, ignore
 		if ( this.state.animating ) {
 			return;
