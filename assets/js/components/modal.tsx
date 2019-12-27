@@ -4,17 +4,17 @@ import classnames from 'classnames';
 
 export interface Props {
 	name: string;
-	children: any[];
+	children?: JSX.Element | JSX.Element[];
 }
 
 export interface State {
 	isOpen: boolean;
 }
 
-export default class Modal extends Component<any, any> {
+export default class Modal extends Component<Props, State> {
 	ref = createRef();
 
-	state = {
+	state: State = {
 		isOpen: false,
 	};
 

@@ -28,10 +28,10 @@ export interface State {
 	tokens: TokenProps[];
 }
 
-export default class Game extends Component<any, any> {
+export default class Game extends Component<Props, State> {
 	ref = createRef();
 
-	state = {
+	state: State = {
 		canvas: { width: 0, height: 0 },
 		ready: false,
 		animating: false,
