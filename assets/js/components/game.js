@@ -75,9 +75,10 @@ export default class Game extends Component {
 	};
 
 	start = () => {
+		this.nextPlayer( 0 );
+
 		this.setState( {
 			ready: true,
-			currentPlayer: 0,
 		} );
 	};
 
