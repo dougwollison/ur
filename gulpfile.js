@@ -42,19 +42,20 @@ function swallow( err ) {
 // =========================
 
 function validateScripts() {
-	return src( './assets/js/**/*.js' )
+	return src( './assets/js/**/*.*' )
 		.pipe( eslint( eslintOptions ) )
 		.pipe( eslint.format() )
 		.pipe( eslint.failAfterError() );
 }
 
 function compileScripts() {
-	return src( './assets/js/app.js' )
+	return src( './assets/js/app.tsx' )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
-				resolve(),
+				resolve( { extensions: [ '.js', '.ts' ] } ),
 				commonjs( { include: 'node_modules/**' } ),
+				typescript(),
 				babel( {
 					...babelOptions,
 					exclude: 'node_modules/**',
