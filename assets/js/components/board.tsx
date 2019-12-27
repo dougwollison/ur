@@ -1,8 +1,20 @@
 import { h } from 'preact';
 
-import Square from './square';
+import Square, { Props as SquareProps } from './square';
 
-export default function Board( { cols, rows, layout, squares } ) {
+export interface Props {
+	cols: number;
+	rows: number;
+	layout: {
+		width: number;
+		height: number;
+		top: number;
+		left: number;
+	};
+	squares: SquareProps[];
+}
+
+export default function Board( { cols, rows, layout, squares } : Props ) {
 	const style = {
 		width: layout.width + 'px',
 		height: layout.height + 'px',

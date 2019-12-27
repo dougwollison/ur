@@ -14,7 +14,24 @@ const PATHS = {
 	br: 'M53.5,85h-7c0-18.5,0-27.7,5.4-33.1c5.3-5.4,14.6-5.4,33.1-5.4v7c-16,0-24.8,0-28.2,3.3C53.5,60.2,53.5,69,53.5,85z',
 };
 
-export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout, arrow } ) {
+export interface Props {
+	side: number;
+	isStart?: boolean;
+	isEnd?: boolean;
+	isDouble?: boolean;
+	isSafe?: boolean;
+	top: number;
+	left: number;
+	layout: {
+		top: string;
+		left: string;
+		width: string;
+		height: string;
+	};
+	arrow?: string;
+}
+
+export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout, arrow } : Props ) {
 	const classes = classnames(
 		'ur-square',
 		`side-${side + 1}`,
@@ -26,7 +43,7 @@ export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout
 		}
 	);
 
-	const paths = arrow.split( ' ' );
+	const paths = ( arrow || '' ).split( ' ' );
 
 	return (
 		<div className={ classes } style={ layout }>
