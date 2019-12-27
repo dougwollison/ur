@@ -1,20 +1,20 @@
+/* globals require, exports */
+
 // Common Stuff
 const { src, dest, watch, series, parallel } = require( 'gulp' );
-const rename = require( 'gulp-rename' );
-const changed = require( 'gulp-changed' );
 
 // Script Stuff
-const browserify = require( 'browserify' );
-const babelify = require( 'babelify' );
-const source = require( 'vinyl-source-stream' );
-const buffer = require( 'vinyl-buffer' );
 const eslint = require( 'gulp-eslint' );
 const terser = require( 'gulp-terser' );
 const sourcemaps = require( 'gulp-sourcemaps' );
+const rollup = require( 'gulp-better-rollup' );
+const resolve = require( '@rollup/plugin-node-resolve' );
+const commonjs = require( '@rollup/plugin-commonjs' );
+const babel = require( 'rollup-plugin-babel' );
 
 // Style Stuff
 const sass = require( 'gulp-sass' );
-const autoprefixer = require('gulp-autoprefixer');
+const autoprefixer = require( 'gulp-autoprefixer' );
 
 // Browser Sync
 const sync = require( 'browser-sync' ).create();
@@ -48,17 +48,22 @@ function validateScripts() {
 }
 
 function compileScripts() {
-	return browserify( {
-			entries: './assets/js/app.js',
-			debug: true,
-		} )
-		.transform( 'babelify', babelOptions )
-		.bundle()
-		.pipe( source( 'bundle.js' ) )
-		.pipe( buffer() )
-		.pipe( sourcemaps.init( { loadMaps: true } ) )
+	return src( './assets/js/app.js' )
+		.pipe( sourcemaps.init() )
+		.pipe( rollup( {
+			plugins: [
+				resolve(),
+				commonjs( { include: 'node_modules/**' } ),
+				babel( {
+					...babelOptions,
+					exclude: 'node_modules/**',
+				} ),
+			],
+		}, {
+			file: 'bundle.js',
+			format: 'iife',
+		} ) )
 		.pipe( terser( {
-			module: true,
 			mangle: {
 				module: true,
 			},
