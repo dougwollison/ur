@@ -1,7 +1,7 @@
-import { h } from 'preact';
+import { h, FunctionComponent } from 'preact';
 import classnames from 'classnames';
 
-export interface Props {
+export interface PlayerProps {
 	side: number;
 	score: number;
 	ready?: boolean;
@@ -9,7 +9,8 @@ export interface Props {
 	onRoll?: () => void;
 }
 
-export default function Player( { ready, roll, side, onRoll } ) {
+export const Player: FunctionComponent<PlayerProps> =
+( { ready, roll, side, onRoll } : PlayerProps ) => {
 	const classes = classnames(
 		'ur-player',
 		`side-${side + 1}`,

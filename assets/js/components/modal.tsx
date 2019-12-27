@@ -2,20 +2,20 @@ import { h, Component, createRef, Fragment } from 'preact';
 import { createPortal } from 'preact/compat';
 import classnames from 'classnames';
 
-export interface Props {
+export interface ModalProps {
 	name: string;
 	content: string;
 	children?: JSX.Element | JSX.Element[];
 }
 
-export interface State {
+export interface ModalState {
 	isOpen: boolean;
 }
 
-export default class Modal extends Component<Props, State> {
+export class Modal extends Component<ModalProps, ModalState> {
 	ref = createRef();
 
-	state: State = {
+	state: ModalState = {
 		isOpen: false,
 	};
 
@@ -34,7 +34,7 @@ export default class Modal extends Component<Props, State> {
 		}
 	}
 
-	render( { name, children }: Props, { isOpen }: State ) {
+	render( { name, children }: ModalProps, { isOpen }: ModalState ) {
 		const classes = classnames(
 			'modal',
 			{ 'is-open': isOpen }

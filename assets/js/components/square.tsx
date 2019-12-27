@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import { h, FunctionalComponent } from 'preact';
 import classnames from 'classnames';
 
 const PATHS = {
@@ -14,7 +14,8 @@ const PATHS = {
 	br: 'M53.5,85h-7c0-18.5,0-27.7,5.4-33.1c5.3-5.4,14.6-5.4,33.1-5.4v7c-16,0-24.8,0-28.2,3.3C53.5,60.2,53.5,69,53.5,85z',
 };
 
-export interface Props {
+export interface SquareProps {
+	index: number;
 	side: number;
 	isStart?: boolean;
 	isEnd?: boolean;
@@ -31,7 +32,8 @@ export interface Props {
 	arrow?: string;
 }
 
-export default function Square( { side, isStart, isEnd, isDouble, isSafe, layout, arrow } : Props ) {
+export const Square: FunctionalComponent<SquareProps> =
+( { side, isStart, isEnd, isDouble, isSafe, layout, arrow } : SquareProps ) => {
 	const classes = classnames(
 		'ur-square',
 		`side-${side + 1}`,

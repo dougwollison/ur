@@ -1,8 +1,7 @@
-import { h } from 'preact';
+import { h, FunctionComponent } from 'preact';
+import { Square, SquareProps } from './square';
 
-import Square, { Props as SquareProps } from './square';
-
-export interface Props {
+export interface BoardProps {
 	cols: number;
 	rows: number;
 	layout: {
@@ -14,7 +13,7 @@ export interface Props {
 	squares: SquareProps[];
 }
 
-export default function Board( { cols, rows, layout, squares } : Props ) {
+export const Board: FunctionComponent<BoardProps> = ( { cols, rows, layout, squares } : BoardProps ) => {
 	const style = {
 		width: layout.width + 'px',
 		height: layout.height + 'px',

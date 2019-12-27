@@ -1,7 +1,7 @@
-import { h } from 'preact';
+import { h, FunctionalComponent } from 'preact';
 import classnames from 'classnames';
 
-export interface Props {
+export interface TokenProps {
 	side: number;
 	progress: number;
 	status: string;
@@ -19,7 +19,8 @@ export interface Props {
 	onClick?: () => void;
 }
 
-export default function Token( { side, status, isInvalid, isPlayable, isAnimating, layout, onClick } : Props ) {
+export const Token: FunctionalComponent<TokenProps> =
+( { side, status, isInvalid, isPlayable, isAnimating, layout, onClick } : TokenProps ) => {
 	const classes = classnames(
 		'ur-token',
 		`side-${side + 1}`,

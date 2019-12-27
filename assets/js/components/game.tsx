@@ -1,12 +1,13 @@
 import { h, Component, createRef, Fragment } from 'preact';
 import classnames from 'classnames';
 
-import Board from './board';
-import Player, { Props as PlayerProps } from './player';
-import Token, { Props as TokenProps } from './token';
-import Modal from './modal';
+import { Board } from './board';
+import { Player, PlayerProps } from './player';
+import { Token, TokenProps } from './token';
+import { Modal } from './modal';
+import { SquareProps } from './square';
 
-export interface Props {
+export interface GameProps {
 	squares: any[];
 	playerCount: number;
 	minRoll: number;
@@ -18,7 +19,7 @@ export interface Props {
 	};
 }
 
-export interface State {
+export interface GameState {
 	canvas: { width: number, height: number };
 	ready: boolean;
 	animating: boolean;
@@ -28,10 +29,10 @@ export interface State {
 	tokens: TokenProps[];
 }
 
-export default class Game extends Component<Props, State> {
+export default class Game extends Component<GameProps, GameState> {
 	ref = createRef();
 
-	state: State = {
+	state: GameState = {
 		canvas: { width: 0, height: 0 },
 		ready: false,
 		animating: false,
@@ -41,7 +42,7 @@ export default class Game extends Component<Props, State> {
 		tokens: [] as TokenProps[],
 	};
 
-	constructor( props: Props ) {
+	constructor( props: GameProps ) {
 		super( props );
 
 		for ( var i = 0; i < props.playerCount; i++ ) {
@@ -314,7 +315,7 @@ export default class Game extends Component<Props, State> {
 		window.removeEventListener( 'resize', this.updateCanvas );
 	}
 
-	render( { squares, playerCount, boardConfig } : Props, { canvas, ready, currentPlayer, currentRoll, players, tokens } : State ) {
+	render( { squares, playerCount, boardConfig } : GameProps, { canvas, ready, currentPlayer, currentRoll, players, tokens } : GameState ) {
 		const classes = classnames(
 			'ur-game',
 			`side-${currentPlayer + 1}`,
