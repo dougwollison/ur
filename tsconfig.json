@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": true,
+        "module": "es6",
+        "moduleResolution": "node",
+		"jsx": "react",
+		"jsxFactory": "h",
+        "allowJs": true
+    },
+    "include": [
+        "./assets/js/"
+    ]
+}
