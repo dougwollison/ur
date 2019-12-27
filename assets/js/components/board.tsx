@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-import Square from './square.js';
+import Square from './square';
 
 export default function Board( { cols, rows, layout, squares } ) {
 	const style = {

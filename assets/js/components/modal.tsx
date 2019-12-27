@@ -2,7 +2,16 @@ import { h, Component, createRef, Fragment } from 'preact';
 import { createPortal } from 'preact/compat';
 import classnames from 'classnames';
 
-export default class Modal extends Component {
+export interface Props {
+	name: string;
+	children: any[];
+}
+
+export interface State {
+	isOpen: boolean;
+}
+
+export default class Modal extends Component<any, any> {
 	ref = createRef();
 
 	state = {
@@ -19,19 +28,19 @@ export default class Modal extends Component {
 
 	componentDidMount() {
 		if ( this.props.content ) {
-			const source = document.getElementById( this.props.content );
+			const source = document.getElementById( this.props.content ) as HTMLTemplateElement;
 			this.ref.current.appendChild( source.content.cloneNode( true ) );
 		}
 	}
 
-	render( { name, children }, { isOpen } ) {
+	render( { name, children }: Props, { isOpen }: State ) {
 		const classes = classnames(
 			'modal',
 			{ 'is-open': isOpen }
 		);
 
 		return (
-			<>
+			<Fragment>
 				<button className="modal-toggle" onClick={ this.open }>{ name }</button>
 				{ createPortal( (
 					<div className={ classes }>
@@ -43,7 +52,7 @@ export default class Modal extends Component {
 						</div>
 					</div>
 				), document.body )}
-			</>
+			</Fragment>
 		);
 	}
 }

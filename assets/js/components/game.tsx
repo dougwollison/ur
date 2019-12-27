@@ -1,12 +1,34 @@
 import { h, Component, createRef, Fragment } from 'preact';
 import classnames from 'classnames';
 
-import Board from './board.js';
-import Player from './player.js';
-import Token from './token.js';
-import Modal from './modal.js';
+import Board from './board';
+import Player, { Props as PlayerProps } from './player';
+import Token, { Props as TokenProps } from './token';
+import Modal from './modal';
 
-export default class Game extends Component {
+export interface Props {
+	squares: any[];
+	playerCount: number;
+	minRoll: number;
+	maxRoll: number;
+	tokenCount: number;
+	boardConfig: {
+		cols: number;
+		rows: number;
+	};
+}
+
+export interface State {
+	canvas: { width: number, height: number };
+	ready: boolean;
+	animating: boolean;
+	currentPlayer: number,
+	currentRoll: number | false;
+	players: PlayerProps[];
+	tokens: TokenProps[];
+}
+
+export default class Game extends Component<any, any> {
 	ref = createRef();
 
 	state = {
@@ -15,11 +37,11 @@ export default class Game extends Component {
 		animating: false,
 		currentPlayer: -1,
 		currentRoll: false,
-		players: [],
-		tokens: [],
+		players: [] as PlayerProps[],
+		tokens: [] as TokenProps[],
 	};
 
-	constructor( props ) {
+	constructor( props: Props ) {
 		super( props );
 
 		for ( var i = 0; i < props.playerCount; i++ ) {
@@ -33,7 +55,7 @@ export default class Game extends Component {
 					side: i,
 					progress: -1,
 					status: 'inactive',
-					inInvalid: false,
+					isInvalid: false,
 				} );
 			}
 		}
@@ -49,15 +71,16 @@ export default class Game extends Component {
 	};
 
 	fullscreen = () => {
-		if ( document.fullscreen ) {
-			if ( document.exitFullscreen ) {
-				document.exitFullscreen();
-			} else if ( document.mozCancelFullScreen ) { // Firefox
-				document.mozCancelFullScreen();
-			} else if ( document.webkitExitFullscreen ) { // Chrome, Safari and Opera
-				document.webkitExitFullscreen();
-			} else if ( document.msExitFullscreen ) { // IE/Edge
-				document.msExitFullscreen();
+		const doc = window.document as any;
+		if ( doc.fullscreen ) {
+			if ( doc.exitFullscreen ) {
+				doc.exitFullscreen();
+			} else if ( doc.mozCancelFullScreen ) { // Firefox
+				doc.mozCancelFullScreen();
+			} else if ( doc.webkitExitFullscreen ) { // Chrome, Safari and Opera
+				doc.webkitExitFullscreen();
+			} else if ( doc.msExitFullscreen ) { // IE/Edge
+				doc.msExitFullscreen();
 			}
 		} else {
 			const elm = this.ref.current;
@@ -81,7 +104,7 @@ export default class Game extends Component {
 		} );
 	};
 
-	nextPlayer( current ) {
+	nextPlayer( current?: number ) {
 		const tokens = [ ...this.state.tokens ];
 
 		if ( typeof current === 'undefined' ) {
@@ -291,7 +314,7 @@ export default class Game extends Component {
 		window.removeEventListener( 'resize', this.updateCanvas );
 	}
 
-	render( { squares, playerCount, boardConfig }, { canvas, ready, currentPlayer, currentRoll, players, tokens } ) {
+	render( { squares, playerCount, boardConfig } : Props, { canvas, ready, currentPlayer, currentRoll, players, tokens } : State ) {
 		const classes = classnames(
 			'ur-game',
 			`side-${currentPlayer + 1}`,
@@ -319,7 +342,7 @@ export default class Game extends Component {
 		const completeCounts = new Array( playerCount ).fill( 0 );
 
 		return (
-			<>
+			<Fragment>
 				<div className={ classes } ref={ this.ref }>
 					<Board { ...boardConfig }
 						layout={ boardLayout }
@@ -361,14 +384,14 @@ export default class Game extends Component {
 
 							default:
 								// Position relative to square
-								layout.top = ( token.top * squareSize ) + boardLayout.top;
+								layout.top = ( ( token.top || 0 ) * squareSize ) + boardLayout.top;
 								break;
 						}
 
 						// Set left based on if on board or not
 						if ( token.status === 'active' ) {
 							// Position relative to square
-							layout.left = ( token.left * squareSize ) + boardLayout.left;
+							layout.left = ( ( token.left || 0 ) * squareSize ) + boardLayout.left;
 						} else {
 							// Position on left/right side
 							layout.left = token.side === 0 ? 0 : width - barWidth;
@@ -396,7 +419,7 @@ export default class Game extends Component {
 					<button className="start" onClick={ this.start }>Start</button>
 				) }
 				<Modal name="How to Play" content="rules" />
-			</>
+			</Fragment>
 		);
 	}
 }

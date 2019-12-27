@@ -1,6 +1,14 @@
 import { h } from 'preact';
 import classnames from 'classnames';
 
+export interface Props {
+	side: number;
+	score: number;
+	ready?: boolean;
+	roll?: number;
+	onRoll?: () => void;
+}
+
 export default function Player( { ready, roll, side, onRoll } ) {
 	const classes = classnames(
 		'ur-player',

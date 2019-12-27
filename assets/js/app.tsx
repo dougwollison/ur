@@ -1,6 +1,6 @@
 import { h, render } from 'preact';
 
-import Game from './components/game.js';
+import Game from './components/game';
 
 const GAME_SQUARES = [
 
@@ -58,4 +58,4 @@ const gameConfig = {
 	},
 };
 
-render( <Game { ...gameConfig } />, document.getElementById( 'root' ) );
+render( <Game { ...gameConfig } />, document.getElementById( 'root' ) as Element );
