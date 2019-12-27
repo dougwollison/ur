@@ -8,7 +8,7 @@ import { Modal } from './modal';
 import { SquareProps } from './square';
 
 export interface GameProps {
-	squares: any[];
+	squares: SquareProps[];
 	playerCount: number;
 	minRoll: number;
 	maxRoll: number;
