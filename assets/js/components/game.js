@@ -82,20 +82,20 @@ export default class Game extends Component {
 		} );
 	};
 
-	nextPlayer( current ) {
+	nextPlayer( player ) {
 		const tokens = [ ...this.state.tokens ];
 
-		if ( typeof current === 'undefined' ) {
-			current = this.state.currentPlayer + 1;
-			if ( current >= this.props.playerCount ) {
-				current = 0;
+		if ( typeof player === 'undefined' ) {
+			player = currentPlayer + 1;
+			if ( player >= this.props.playerCount ) {
+				player = 0;
 			}
 		}
 
 		tokens.forEach( token => ( token.isInvalid = false ) );
 
 		this.setState( {
-			currentPlayer: current,
+			currentPlayer: player,
 			currentRoll: false,
 			tokens,
 		} );
