@@ -15,6 +15,7 @@ export default class Game extends Component {
 		animating: false,
 		currentPlayer: -1,
 		currentRoll: false,
+		turnCounts: [],
 		players: [],
 		tokens: [],
 	};
@@ -36,6 +37,8 @@ export default class Game extends Component {
 					inInvalid: false,
 				} );
 			}
+
+			this.state.turnCounts.push( 0 );
 		}
 	}
 
@@ -84,7 +87,10 @@ export default class Game extends Component {
 
 	nextPlayer( player ) {
 		const tokens = [ ...this.state.tokens ];
+		const turnCounts = [ ...this.state.turnCounts ];
+		const { currentPlayer } = this.state;
 
+		// By default, advance to next player
 		if ( typeof player === 'undefined' ) {
 			player = currentPlayer + 1;
 			if ( player >= this.props.playerCount ) {
@@ -92,11 +98,17 @@ export default class Game extends Component {
 			}
 		}
 
+		// If changing players, increment turn
+		if ( player !== currentPlayer ) {
+			turnCounts[ player ]++;
+		}
+
 		tokens.forEach( token => ( token.isInvalid = false ) );
 
 		this.setState( {
 			currentPlayer: player,
 			currentRoll: false,
+			turnCounts,
 			tokens,
 		} );
 	}
@@ -150,11 +162,17 @@ export default class Game extends Component {
 
 	handleRoll = () => {
 		const { minRoll, maxRoll } = this.props;
+		const { turnCounts, currentPlayer } = this.state;
 		var result = minRoll;
 
 		// Sum a number of simulated coin flips
 		for ( let i = 0; i < maxRoll - minRoll; i++ ) {
 			result += Math.floor( Math.random() * 2 ) ? 1 : 0;
+		}
+
+		// If on first turn, don't allow a 0
+		if ( ! result && turnCounts[ currentPlayer ] <= 0 ) {
+			result = 1;
 		}
 
 		this.setState( {
