@@ -5,7 +5,7 @@ export interface Props {
 	side: number;
 	score: number;
 	ready?: boolean;
-	roll?: number;
+	roll?: number | false;
 	onRoll?: () => void;
 }
 
