@@ -1,4 +1,4 @@
-/* globals require, exports */
+/* eslint-disable */
 
 // Common Stuff
 const { src, dest, watch, series, parallel } = require( 'gulp' );
@@ -10,6 +10,7 @@ const sourcemaps = require( 'gulp-sourcemaps' );
 const rollup = require( 'gulp-better-rollup' );
 const resolve = require( '@rollup/plugin-node-resolve' );
 const commonjs = require( '@rollup/plugin-commonjs' );
+const typescript = require( '@rollup/plugin-typescript' );
 const babel = require( 'rollup-plugin-babel' );
 
 // Style Stuff
