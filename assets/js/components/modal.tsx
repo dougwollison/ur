@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 export interface Props {
 	name: string;
+	content: string;
 	children?: JSX.Element | JSX.Element[];
 }
 
